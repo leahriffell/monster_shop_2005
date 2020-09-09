@@ -35,4 +35,7 @@ Rails.application.routes.draw do
   get "/orders/:id", to: "orders#show"
 
   get "/register", to: "users#new"
+  resources :users, except: [:new]
+  get "/profile", to: "users#show"
+
 end
