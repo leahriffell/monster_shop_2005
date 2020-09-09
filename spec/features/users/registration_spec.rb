@@ -28,5 +28,22 @@ RSpec.describe "User Registration Page", type: :feature do
 
       expect(page).to have_content("Welcome, #{username}")
     end
+
+    it "can edge case test for password confirmation not matching password"
+
+    it "can show a flash message when user registration is missing details" do
+      visit "/register"
+      fill_in  :address, with: "131 Hills Ave"
+      fill_in  :city, with: "Tomville"
+      fill_in  :state, with: "CO"
+      fill_in  :zip, with: "82828"
+      fill_in  :email, with: "tombroke@gmail.com"
+      fill_in  :password, with: "hiohio38298"
+      fill_in  :password_confirmation, with: "hiohio38298"
+      click_button "Sign-up"
+      expect(current_path).to eq("/register")
+      expect(page).to have_content("You are missing one or more required fields")
+    end
+
   end
 end
