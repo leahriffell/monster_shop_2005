@@ -5,9 +5,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.create(user_params)
-    flash[:success] = "Welcome, #{user.name}"
-    redirect_to '/profile'
+    user = User.new(user_params)
+    if user.save
+      flash[:success] = "Welcome, #{user.name}"
+      redirect_to '/profile'
+    else
+      flash[:failure] = "You are missing one or more required fields"
+      redirect_to '/register'
+    end
+
   end
 
   def show
