@@ -21,7 +21,7 @@ RSpec.describe "User Registration Page", type: :feature do
       fill_in  :city, with: "Tomville"
       fill_in  :state, with: "CO"
       fill_in  :zip, with: "82828"
-      fill_in  :email, with: "tombroke@gmail.com"
+      fill_in  :email, with: "iamemailhearmeroar@gmail.com"
       fill_in  :password, with: "hiohio38298"
       fill_in  :password_confirmation, with: "hiohio38298"
 
