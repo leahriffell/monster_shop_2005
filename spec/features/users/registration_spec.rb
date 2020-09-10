@@ -43,18 +43,22 @@ RSpec.describe "User Registration Page", type: :feature do
       fill_in  :email, with: "tombroke@gmail.com"
       fill_in  :password, with: "hiohio38298"
       fill_in  :password_confirmation, with: "hiohio38298"
+      
       click_button "Sign-up"
 
-      expect(current_path).to eq("/register") 
-      expect(page).to have_content("131 Hills Ave")
-      expect(page).to have_content("Tomville")
-      expect(page).to have_content("CO")
-      expect(page).to have_content("tombroke@gmail.com")
+      # expect(current_path).to eq("/register") 
+      # since we are rendering, we don't redirect to the path above
+
+      expect(find_field(:address).value).to eq("131 Hills Ave")
+      expect(find_field(:city).value).to eq("Tomville")
+      expect(find_field(:state).value).to eq("CO")
+      expect(find_field(:zip).value).to eq("82828")
+      expect(find_field(:email).value).to eq("tombroke@gmail.com")
+      expect(find_field(:password).value).to have_no_content("hiohio38298")
       expect(page).to have_content("You are missing one or more required fields")
     end
 
     it "can require a registration email be unique" do
-
       visit "/register"
       username = "Tom Brokaw"
       test_email = "tombroke@gmail.com"
@@ -69,9 +73,16 @@ RSpec.describe "User Registration Page", type: :feature do
 
       click_button "Sign-up"
 
-      expect(current_path).to eq("/register")
-      expect(page).to have_content("131 Hills Ave")
-      expect(page).to_not have_content(test_email)
+      # expect(current_path).to eq("/register")
+      # since we are rendering, we don't redirect to the path above
+
+      expect(find_field(:name).value).to eq(username)
+      expect(find_field(:address).value).to eq("131 Hills Ave")
+      expect(find_field(:city).value).to eq("Tomville")
+      expect(find_field(:state).value).to eq("CO")
+      expect(find_field(:zip).value).to eq("82828")
+      expect(find_field(:email).value).to have_no_content(test_email)
+      expect(find_field(:password).value).to have_no_content("hiohio38298")
       expect(page).to have_content("The email address #{test_email} is already in use")
     end
   end
