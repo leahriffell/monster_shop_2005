@@ -34,8 +34,7 @@ Rails.application.routes.draw do
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show"
 
-  get "/register", to: "users#new"
   resources :users, only: [:create]
+  get "/register", to: "users#new"
   get "/profile", to: "users#show"
-
 end
