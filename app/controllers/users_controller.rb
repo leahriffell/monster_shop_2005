@@ -9,12 +9,12 @@ class UsersController < ApplicationController
     if @user.save
       flash[:success] = "Welcome, #{@user.name}"
       redirect_to '/profile'
-    elsif user_params.values.any?('')
-      flash[:failure] = "You are missing one or more required fields"
-      render :new
-    else
-      flash[:error] = "The email address #{@user.email} is already in use"
+    elsif User.email_exists?(@user.email)
+      flash[:failure] = @user.errors.full_messages.to_sentence
       @user.email = nil
+      render :new
+    else 
+      flash[:failure] = @user.errors.full_messages.to_sentence
       render :new
     end
   end
