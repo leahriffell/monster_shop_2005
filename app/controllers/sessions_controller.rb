@@ -9,4 +9,6 @@ class SessionsController < ApplicationController
     flash[:success] = "Welcome, #{user.name}. You are logged in!"
     redirect_to "/profile"
   end
+
+  
 end

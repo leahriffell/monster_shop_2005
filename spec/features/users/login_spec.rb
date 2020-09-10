@@ -45,6 +45,9 @@ RSpec.describe "Login Page", type: :feature do
 
       click_button "Login"
 
+      # we know this is coming for adding a logout link, but we'll comment it out for now.
+      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
+      #
       expect(current_path).to eq("/merchants/dashboard")
 
       expect(page).to have_content("Welcome, #{@merchant.name}. You are logged in!")
@@ -63,6 +66,10 @@ RSpec.describe "Login Page", type: :feature do
       fill_in  :password, with: @admin.password
 
       click_button "Login"
+
+      # we know this is coming for adding a logout link, but we'll comment it out for now.
+      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      #
 
       expect(current_path).to eq("/admin/dashboard")
 
