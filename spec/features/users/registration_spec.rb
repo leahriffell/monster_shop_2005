@@ -66,6 +66,7 @@ RSpec.describe "User Registration Page", type: :feature do
 
       expect(current_path).to eq("/register")
       expect(page).to have_content("131 Hills Ave")
+      save_and_open_page
       expect(page).to_not have_content(test_email)
       expect(page).to have_content("The email address #{test_email} is already in use")
     end
