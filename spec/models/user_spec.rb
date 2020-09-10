@@ -13,4 +13,12 @@ describe User, type: :model do
       it  { should validate_presence_of :password_confirmation }
   end
 
+  describe "class methods" do 
+    it ".email_exists?" do
+      user = User.create!(name:"Luke Hunter James-Erickson", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword")
+
+      expect(User.email_exists?("tombroke@gmail.com")).to eq(true)
+      expect(User.email_exists?("anything@gmail.com")).to eq(false)
+    end
+  end
 end
