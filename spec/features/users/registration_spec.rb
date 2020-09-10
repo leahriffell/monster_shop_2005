@@ -44,7 +44,12 @@ RSpec.describe "User Registration Page", type: :feature do
       fill_in  :password, with: "hiohio38298"
       fill_in  :password_confirmation, with: "hiohio38298"
       click_button "Sign-up"
-      expect(current_path).to eq("/register")
+
+      expect(current_path).to eq("/register") 
+      expect(page).to have_content("131 Hills Ave")
+      expect(page).to have_content("Tomville")
+      expect(page).to have_content("CO")
+      expect(page).to have_content("tombroke@gmail.com")
       expect(page).to have_content("You are missing one or more required fields")
     end
 
@@ -66,7 +71,6 @@ RSpec.describe "User Registration Page", type: :feature do
 
       expect(current_path).to eq("/register")
       expect(page).to have_content("131 Hills Ave")
-      save_and_open_page
       expect(page).to_not have_content(test_email)
       expect(page).to have_content("The email address #{test_email} is already in use")
     end
