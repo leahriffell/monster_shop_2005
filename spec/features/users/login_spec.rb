@@ -35,19 +35,15 @@ RSpec.describe "Login Page", type: :feature do
 
 
     it "can login a merchant user" do
-
-
-
       expect(current_path).to eq("/login")
 
       fill_in :email, with: @merchant.email
       fill_in  :password, with: @merchant.password
 
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+
       click_button "Login"
 
-      # we know this is coming for adding a logout link, but we'll comment it out for now.
-      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant)
-      #
       expect(current_path).to eq("/merchants/dashboard")
 
       expect(page).to have_content("Welcome, #{@merchant.name}. You are logged in!")
@@ -65,11 +61,10 @@ RSpec.describe "Login Page", type: :feature do
       fill_in :email, with: @admin.email
       fill_in  :password, with: @admin.password
 
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+
       click_button "Login"
 
-      # we know this is coming for adding a logout link, but we'll comment it out for now.
-      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-      #
 
       expect(current_path).to eq("/admin/dashboard")
 

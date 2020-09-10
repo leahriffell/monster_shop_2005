@@ -13,10 +13,7 @@ describe User, type: :model do
       it  { should validate_presence_of :password_confirmation }
       it  { should validate_presence_of :role }
   end
-
-  # next steps:
-  # get the below tests passing!
-
+  
   describe "roles" do
     it "can be created as an admin" do
       user = User.create(email: "penelope@gmail.com",
