@@ -6,7 +6,7 @@ RSpec.describe "User Registration Page", type: :feature do
       @user = User.create(name:"Luke Hunter James-Erickson", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword")
     end
 
-    it "Can register a user" do
+    it "can register a user" do
       visit "/merchants"
 
       within(".topnav") do
@@ -46,9 +46,6 @@ RSpec.describe "User Registration Page", type: :feature do
       
       click_button "Sign-up"
 
-      # expect(current_path).to eq("/register") 
-      # since we are rendering, we don't redirect to the path above
-
       expect(find_field(:address).value).to eq("131 Hills Ave")
       expect(find_field(:city).value).to eq("Tomville")
       expect(find_field(:state).value).to eq("CO")
@@ -72,9 +69,6 @@ RSpec.describe "User Registration Page", type: :feature do
       fill_in  :password_confirmation, with: "hiohio38298"
 
       click_button "Sign-up"
-
-      # expect(current_path).to eq("/register")
-      # since we are rendering, we don't redirect to the path above
 
       expect(find_field(:name).value).to eq(username)
       expect(find_field(:address).value).to eq("131 Hills Ave")
