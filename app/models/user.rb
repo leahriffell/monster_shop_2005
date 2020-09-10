@@ -5,4 +5,8 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, presence: true
 
   has_secure_password
+
+  def self.email_exists?(email)
+    self.find_by(email:email) != nil
+  end
 end
