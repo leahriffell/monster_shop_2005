@@ -1,11 +1,6 @@
-class Merchants::DashboardController < ApplicationController
-  before_action :require_merchant
+class Merchants::DashboardController < Merchants::BaseController
 
   def index
   end
 
-  private
-    def require_merchant
-      render file: "/public/404" unless current_merchant?
-    end
 end
