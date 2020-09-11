@@ -2,9 +2,9 @@
 
 <%= form_tag "/login", method: :post do %>
   <%= label_tag :email %><br>
-  <%= text_field_tag :email, placeholder: "Email" %><br>
+  <%= text_field_tag :email, "Email" %><br>
   <%= label_tag :password %><br>
-  <%= text_field_tag :password, placeholder: "Password" %><br>
+  <%= text_field_tag :password, "Password" %><br>
 
   <%= submit_tag "Login", class: :button %>
 <% end %>
