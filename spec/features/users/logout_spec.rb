@@ -9,9 +9,14 @@ RSpec.describe "Logout process", type: :feature do
       @merchant = User.create(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "Leahsocool@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1)
 
       @admin = User.create(name:"Priya", address:"13 Elm Street", city:"Denver", state:"CO", zip:"66666", email: "priyavcooltoo@gmail.com", password:"yuuuuuup", password_confirmation:"yuuuuuup", role: 2)
-      @cart = Cart.new({"1": 1})
 
-      visit "/"
+      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
+      @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+
+      visit "/items/#{@paper.id}"
+
+      click_on "Add To Cart"
 
       within(".topnav") do
         expect(page).to have_link("Login")
@@ -26,6 +31,10 @@ RSpec.describe "Logout process", type: :feature do
       click_button "Login"
 
       within(".topnav") do
+        expect(page).to have_link("Cart: 1")
+      end
+
+      within(".topnav") do
         expect(page).to have_link("Logout")
         expect(page).to_not have_link("Login")
         expect(page).to_not have_link("Register")
@@ -36,9 +45,64 @@ RSpec.describe "Logout process", type: :feature do
       expect(page).to have_content("Congrats, you're leaving, but you should stay!")
       within(".topnav") do
         expect(page).to have_link("Cart: 0")
+        click_link "Login"
       end
-      expect(@cart.total_items).to eq(0)
-      expect(current_user).to eq(nil)
+
+      expect(current_path).to eq('/login')
+    end
+
+    it "Can logout a merchant logged-in user" do
+      fill_in :email, with: @merchant.email
+      fill_in  :password, with: @merchant.password
+
+      click_button "Login"
+
+      within(".topnav") do
+        expect(page).to have_link("Cart: 1")
+      end
+
+      within(".topnav") do
+        expect(page).to have_link("Logout")
+        expect(page).to_not have_link("Login")
+        expect(page).to_not have_link("Register")
+        click_link "Logout"
+      end
+
+      expect(current_path).to eq("/")
+      expect(page).to have_content("Congrats, you're leaving, but you should stay!")
+      within(".topnav") do
+        expect(page).to have_link("Cart: 0")
+        click_link "Login"
+      end
+
+      expect(current_path).to eq('/login')
+    end
+
+    it "Can logout a admin logged-in user" do
+      fill_in :email, with: @admin.email
+      fill_in  :password, with: @admin.password
+
+      click_button "Login"
+
+      within(".topnav") do
+        expect(page).to have_link("Cart: 1")
+      end
+
+      within(".topnav") do
+        expect(page).to have_link("Logout")
+        expect(page).to_not have_link("Login")
+        expect(page).to_not have_link("Register")
+        click_link "Logout"
+      end
+
+      expect(current_path).to eq("/")
+      expect(page).to have_content("Congrats, you're leaving, but you should stay!")
+      within(".topnav") do
+        expect(page).to have_link("Cart: 0")
+        click_link "Login"
+      end
+
+      expect(current_path).to eq('/login')
     end
   end
 end
