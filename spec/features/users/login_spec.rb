@@ -18,7 +18,6 @@ RSpec.describe "Login Page", type: :feature do
     end
 
     it "can login a regular user" do
-
       expect(current_path).to eq("/login")
 
       fill_in :email, with: @user.email
@@ -47,7 +46,6 @@ RSpec.describe "Login Page", type: :feature do
     end
 
     it "can login an admin user" do
-
       expect(current_path).to eq("/login")
 
       fill_in :email, with: @admin.email
@@ -60,6 +58,42 @@ RSpec.describe "Login Page", type: :feature do
       expect(current_path).to eq("/admin/dashboard")
 
       expect(page).to have_content("Welcome Admin, #{@admin.name}!")
+    end
+
+    it "cannot login user with incorrect email" do 
+      expect(current_path).to eq("/login")
+
+      fill_in :email, with: "incorrect email"
+      fill_in  :password, with: @user.password
+      click_button "Login"
+
+      expect(current_path).to eq("/login")
+
+      expect(page).to have_content("Incorrect email or password.")
+    end
+
+    it "cannot login user with incorrect password" do 
+      expect(current_path).to eq("/login")
+
+      fill_in :email, with: @user.email
+      fill_in  :password, with: "incorrect password"
+      click_button "Login"
+
+      expect(current_path).to eq("/login")
+
+      expect(page).to have_content("Incorrect email or password.")
+    end
+
+    it "cannot login user with incorrect email and incorrect password" do 
+      expect(current_path).to eq("/login")
+
+      fill_in :email, with: "incorrect email"
+      fill_in  :password, with: "incorrect password"
+      click_button "Login"
+
+      expect(current_path).to eq("/login")
+
+      expect(page).to have_content("Incorrect email or password.")
     end
 
     # it "cannot visit merchant or admin dashboard as a regular user" do
