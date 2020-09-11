@@ -60,7 +60,7 @@ RSpec.describe "Login Page", type: :feature do
       expect(page).to have_content("Welcome Admin, #{@admin.name}!")
     end
 
-    it "cannot login user with incorrect email" do 
+    it "cannot login user with incorrect email" do
       expect(current_path).to eq("/login")
 
       fill_in :email, with: "incorrect email"
@@ -72,7 +72,7 @@ RSpec.describe "Login Page", type: :feature do
       expect(page).to have_content("Incorrect email or password.")
     end
 
-    it "cannot login user with incorrect password" do 
+    it "cannot login user with incorrect password" do
       expect(current_path).to eq("/login")
 
       fill_in :email, with: @user.email
@@ -84,7 +84,7 @@ RSpec.describe "Login Page", type: :feature do
       expect(page).to have_content("Incorrect email or password.")
     end
 
-    it "cannot login user with incorrect email and incorrect password" do 
+    it "cannot login user with incorrect email and incorrect password" do
       expect(current_path).to eq("/login")
 
       fill_in :email, with: "incorrect email"
@@ -95,6 +95,38 @@ RSpec.describe "Login Page", type: :feature do
 
       expect(page).to have_content("Incorrect email or password.")
     end
+
+    it "can redirect a logged in regular user to profile" do
+      fill_in :email, with: @user.email
+      fill_in  :password, with: @user.password
+      click_button "Login"
+
+      visit "/merchants"
+      visit "/login"
+      expect(current_path).to eq("/profile")
+    end
+
+    it "can redirect a logged in merchant user to dashboard" do
+      fill_in :email, with: @merchant.email
+      fill_in  :password, with: @merchant.password
+      click_button "Login"
+
+      visit "/merchants"
+      visit "/login"
+      expect(current_path).to eq("/merchants/dashboard")
+    end
+
+    it "can redirect a logged in admin user to dashboard" do
+      fill_in :email, with: @admin.email
+      fill_in  :password, with: @admin.password
+      click_button "Login"
+
+      visit "/merchants"
+      visit "/login"
+      expect(current_path).to eq("/admin/dashboard")
+    end
+
+    it "cannot redirect a logged in regular user to a dashboard"
 
     # it "cannot visit merchant or admin dashboard as a regular user" do
     #   fill_in :email, with: @user.email
