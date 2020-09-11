@@ -9,6 +9,8 @@ RSpec.describe "Logout process", type: :feature do
       @merchant = User.create(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "Leahsocool@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1)
 
       @admin = User.create(name:"Priya", address:"13 Elm Street", city:"Denver", state:"CO", zip:"66666", email: "priyavcooltoo@gmail.com", password:"yuuuuuup", password_confirmation:"yuuuuuup", role: 2)
+      @cart = Cart.new({"1": 1})
+
       visit "/"
 
       within(".topnav") do
@@ -35,7 +37,8 @@ RSpec.describe "Logout process", type: :feature do
       within(".topnav") do
         expect(page).to have_link("Cart: 0")
       end
-      expect(cart.total_items).to eq(0)
+      expect(@cart.total_items).to eq(0)
+      expect(current_user).to eq(nil)
     end
   end
 end

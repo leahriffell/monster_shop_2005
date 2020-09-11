@@ -33,5 +33,12 @@ class SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    session.delete(:user_id)
+    cart.empty_cart
+    flash[:success] = "Congrats, you're leaving, but you should stay!"
+    redirect_to root_path
+  end
+
 
 end
