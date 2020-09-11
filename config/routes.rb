@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
 
 
+
+
   namespace :admin do
     get "/dashboard", to: "dashboard#index"
   end
