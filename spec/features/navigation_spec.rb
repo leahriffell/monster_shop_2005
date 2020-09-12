@@ -45,7 +45,16 @@ RSpec.describe 'Site Navigation' do
       within 'nav' do
         expect(page).to have_content("Cart: 0")
       end
+    end
 
+    it "can redirect a user to 404 error if they try to access any path with /merchant" do
+      visit "/merchants"
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
+
+    it "can redirect a user to 404 error if they try to access any path with /admin" do
+      visit "/admin"
+      expect(page).to have_content("The page you were looking for doesn't exist.")
     end
 
     it "I can see a profile link if logged in on all pages" do
@@ -100,9 +109,9 @@ RSpec.describe 'Site Navigation' do
     end
 
     # it "I can see Admin Dashboard when logged in as an merchant" do
-    #   fill_in :email, with: @merchant.email
-    #   fill_in  :password, with: @merchant.password
-    #   click_button "Login"
+      # fill_in :email, with: @merchant.email
+      # fill_in  :password, with: @merchant.password
+      # click_button "Login"
     #
     #   within 'nav' do
     #     expect(page).to have_content("Merchant Dashboard")
