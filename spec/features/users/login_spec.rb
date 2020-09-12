@@ -130,27 +130,10 @@ RSpec.describe "Login Page", type: :feature do
       click_button "Login"
 
       visit "/merchants"
-        # visit "/merchants/dashboard"
-        # save_and_open_page
-        # Checked in a save and open page - some sort of 404 error is showing, we just need to use the PREBUILT errors
+ 
       visit "/login"
       expect(current_path).to_not eq("/merchants/dashboard")
       expect(current_path).to_not eq("/admin/dashboard")
     end
-
-    # it "cannot visit merchant or admin dashboard as a regular user" do
-    #   fill_in :email, with: @user.email
-    #   fill_in  :password, with: @user.password
-    #   click_button "Login"
-    #
-    #   visit '/merchants/dashboard'
-    #
-    #   expect(current_path).to eq("/public/404")
-    #
-    #   visit '/admin/dashboard'
-    #
-    #   expect(current_path).to eq("/public/404")
-    # end
-
   end
 end
