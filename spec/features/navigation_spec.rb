@@ -10,6 +10,14 @@ RSpec.describe 'Site Navigation' do
     end
 
     describe 'I can link to all pages within nav' do 
+      it 'can link to home page' do 
+        within 'nav' do
+          click_link 'Home'
+        end
+
+        expect(current_path).to eq("/")
+      end
+
       it 'can link to items index' do
         within 'nav' do
           click_link 'All Items'
@@ -24,14 +32,6 @@ RSpec.describe 'Site Navigation' do
         end
 
         expect(current_path).to eq('/merchants')
-      end
-
-      it 'can link to home page' do 
-        within 'nav' do
-          click_link 'Home'
-        end
-
-        expect(current_path).to eq("/")
       end
 
       it 'can link to cart' do 
