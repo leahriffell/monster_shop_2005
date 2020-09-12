@@ -30,6 +30,7 @@ RSpec.describe 'Site Navigation' do
         end
 
         expect(current_path).to eq('/merchants')
+        expect(page).to have_content("New Merchant")
       end
     end
 
