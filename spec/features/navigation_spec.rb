@@ -49,6 +49,14 @@ RSpec.describe 'Site Navigation' do
 
         expect(current_path).to eq("/login")
       end
+
+      it 'can link to user registration' do 
+        within 'nav' do
+          click_link 'Register'
+        end
+
+        expect(current_path).to eq("/register")
+      end
     end
 
     describe 'I can see cart indicator on all pages' do 
@@ -65,7 +73,7 @@ RSpec.describe 'Site Navigation' do
       end
     end
 
-    describe 'I can see different nav items if logged in' do 
+    describe 'I can see specific nav items if logged in' do 
       before :each do 
         within 'nav' do
           click_link "Login"
