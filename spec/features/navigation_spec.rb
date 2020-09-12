@@ -51,73 +51,54 @@ RSpec.describe 'Site Navigation' do
       end
     end
 
-    it "I can see a cart indicator on all pages" do
-      within 'nav' do
-        expect(page).to have_content("Cart: 0")
-      end
+    describe 'I can see cart indicator on all pages' do 
+      it 'sees number of items in cart' do
+        within 'nav' do
+          expect(page).to have_content("Cart: 0")
+        end
 
-      visit '/items'
+        visit '/items'
 
-      within 'nav' do
-        expect(page).to have_content("Cart: 0")
-      end
-
-    end
-
-    it "I can see a profile link if logged in on all pages" do
-      within 'nav' do
-        click_link "Login"
-      end
-
-      fill_in :email, with: @user.email
-      fill_in  :password, with: @user.password
-      click_button "Login"
-
-      within 'nav' do
-        expect(page).to have_link("Profile")
+        within 'nav' do
+          expect(page).to have_content("Cart: 0")
+        end
       end
     end
 
-    it "I can see a logout link if logged in on all pages" do
-      within 'nav' do
-        click_link "Login"
+    describe 'I can see different nav items if logged in' do 
+      before :each do 
+        within 'nav' do
+          click_link "Login"
+        end
+
+        fill_in :email, with: @user.email
+        fill_in  :password, with: @user.password
+        click_button "Login"
       end
 
-      fill_in :email, with: @user.email
-      fill_in  :password, with: @user.password
-      click_button "Login"
-
-      within 'nav' do
-        expect(page).to have_link("Logout")
-      end
-    end
-
-    it "I cannot see a login or register link if logged in on all pages" do
-      within 'nav' do
-        click_link "Login"
+      it 'I can see a profile link if logged in on all pages' do
+        within 'nav' do
+          expect(page).to have_link("Profile")
+        end
       end
 
-      fill_in :email, with: @user.email
-      fill_in  :password, with: @user.password
-      click_button "Login"
-
-      within 'nav' do
-        expect(page).to_not have_link("Login")
-        expect(page).to_not have_link("Register")
-      end
-    end
-
-    it "I can see 'logged in as' message if logged in on all pages" do
-      within 'nav' do
-        click_link "Login"
+      it 'I can see a logout link if logged in on all pages' do
+        within 'nav' do
+          expect(page).to have_link("Logout")
+        end
       end
 
-      fill_in :email, with: @user.email
-      fill_in  :password, with: @user.password
-      click_button "Login"
+      it 'I cannot see a login or register link if logged in on all pages' do
+        within 'nav' do
+          expect(page).to_not have_link("Login")
+          expect(page).to_not have_link("Register")
+        end
+      end
 
-      within 'nav' do
-        expect(page).to have_content("Logged in as #{@user.name}")
+      it "I can see 'logged in as' message if logged in on all pages" do
+        within 'nav' do
+          expect(page).to have_content("Logged in as #{@user.name}")
+        end
       end
     end
   end
