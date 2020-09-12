@@ -4,10 +4,10 @@ require 'rails_helper'
 RSpec.describe 'Site Navigation' do
   describe 'As a Visitor' do
     before :each do
-      @user = User.create(name:"Luke Hunter James-Erickson", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
+      @user = User.create(name:"Jackie Chan", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
 
       visit '/merchants'
-      
+
       within 'nav' do
         click_link "Login"
       end
@@ -70,6 +70,14 @@ RSpec.describe 'Site Navigation' do
       within 'nav' do
         expect(page).to_not have_link("Login")
         expect(page).to_not have_link("Register")
+      end
+    end
+
+    it "I can see 'logged in as' message if logged in on all pages" do
+      visit '/merchants'
+
+      within 'nav' do
+        expect(page).to_not have_content("Logged in as #{@user.name}")
       end
     end
   end
