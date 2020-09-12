@@ -21,6 +21,7 @@
 
         <% if current_user.role == "admin" %>
           <%= link_to "Admin Dashboard", "/admin" %>
+          <%= link_to "All Users", "/admin/users" %>
         <% else %>
           <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <% end %>
