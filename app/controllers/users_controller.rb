@@ -20,7 +20,9 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    if current_visitor?
+      render file: "/public/404"
+    end
   end
 
   private

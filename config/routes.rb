@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get "/", to: "welcome#index", as: :root
 
   namespace :merchants do
-    get "/dashboard", to: "dashboard#index"
+    get "/merchant", to: "dashboard#index", as: :dashboard
   end
 
   get "/merchants", to: "merchants#index"
@@ -49,9 +49,9 @@ Rails.application.routes.draw do
   get "/logout", to: "sessions#destroy"
 
   namespace :admin do
-    get "/dashboard", to: "dashboard#index"
+    get "/admin", to: "dashboard#index", as: :dashboard
   end
 
-
+  resources :admin, only: [:index]
 
 end

@@ -10,7 +10,6 @@ RSpec.describe "Login Page", type: :feature do
       visit "/merchants"
 
       within(".topnav") do
-        expect(page).to have_link("Login")
         click_link "Login"
       end
     end
@@ -38,7 +37,7 @@ RSpec.describe "Login Page", type: :feature do
 
       click_button "Login"
 
-      expect(current_path).to eq("/merchants/dashboard")
+      expect(current_path).to eq(merchants_dashboard_path)
 
       expect(page).to have_content("Welcome Merchant, #{@merchant.name}!")
     end
@@ -53,7 +52,7 @@ RSpec.describe "Login Page", type: :feature do
 
       click_button "Login"
 
-      expect(current_path).to eq("/admin/dashboard")
+      expect(current_path).to eq(admin_dashboard_path)
 
       expect(page).to have_content("Welcome Admin, #{@admin.name}!")
     end
@@ -111,7 +110,7 @@ RSpec.describe "Login Page", type: :feature do
 
       visit "/merchants"
       visit "/login"
-      expect(current_path).to eq("/merchants/dashboard")
+      expect(current_path).to eq(merchants_dashboard_path)
     end
 
     it "can redirect a logged in admin user to dashboard" do
@@ -121,7 +120,7 @@ RSpec.describe "Login Page", type: :feature do
 
       visit "/merchants"
       visit "/login"
-      expect(current_path).to eq("/admin/dashboard")
+      expect(current_path).to eq(admin_dashboard_path)
     end
 
     it "cannot redirect a logged in regular user to a dashboard" do
@@ -132,8 +131,8 @@ RSpec.describe "Login Page", type: :feature do
       visit "/merchants"
  
       visit "/login"
-      expect(current_path).to_not eq("/merchants/dashboard")
-      expect(current_path).to_not eq("/admin/dashboard")
+      expect(current_path).to_not eq("/merchant")
+      expect(current_path).to_not eq(admin_dashboard_path)
     end
   end
 end
