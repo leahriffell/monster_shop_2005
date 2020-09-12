@@ -104,10 +104,22 @@ RSpec.describe 'Site Navigation' do
           expect(page).to_not have_link("Register")
         end
       end
-
+    
       it "I can see 'logged in as' message if logged in on all pages" do
         within 'nav' do
           expect(page).to have_content("Logged in as #{@user.name}")
+        end
+      end
+
+      describe 'I cannot access certain areas as a regular user' do
+        it "can redirect a user to 404 error if they try to access any path with /merchant" do
+          visit "/merchants"
+          expect(page).to have_content("The page you were looking for doesn't exist.")
+        end
+    
+        it "can redirect a user to 404 error if they try to access any path with /admin" do
+          visit "/admin"
+          expect(page).to have_content("The page you were looking for doesn't exist.")
         end
       end
     end
