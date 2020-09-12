@@ -47,17 +47,14 @@ RSpec.describe 'Site Navigation' do
       end
     end
 
-    # =========================================================
-    # US7
     it "can redirect a user to 404 error if they try to access any path with /merchant" do
       visit "/merchants"
-      # UH OH.... This might be a paired decision - I think that even the landing page /merchants should be avoided by a typical user?
-      # This means that we need to go check all specs, and any visit to "/merchants" needs to be checked it required update to "/"
-      # Then I can find the logic for a before and render when visiting any namespace :merchants
+      expect(page).to have_content("The page you were looking for doesn't exist.")
     end
 
     it "can redirect a user to 404 error if they try to access any path with /admin" do
-
+      visit "/admin"
+      expect(page).to have_content("The page you were looking for doesn't exist.")
     end
 
     it "I can see a profile link if logged in on all pages" do
@@ -112,9 +109,9 @@ RSpec.describe 'Site Navigation' do
     end
 
     # it "I can see Admin Dashboard when logged in as an merchant" do
-    #   fill_in :email, with: @merchant.email
-    #   fill_in  :password, with: @merchant.password
-    #   click_button "Login"
+      # fill_in :email, with: @merchant.email
+      # fill_in  :password, with: @merchant.password
+      # click_button "Login"
     #
     #   within 'nav' do
     #     expect(page).to have_content("Merchant Dashboard")
