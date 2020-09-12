@@ -43,5 +43,30 @@ RSpec.describe 'Site Navigation' do
       visit "/cart"
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end
+
+    it 'I can see a profile link if logged in on all pages' do
+      within 'nav' do
+        expect(page).to have_link("Profile")
+      end
+    end
+
+    it 'I can see a logout link if logged in on all pages' do
+      within 'nav' do
+        expect(page).to have_link("Logout")
+      end
+    end
+
+    it 'I cannot see a login or register link if logged in on all pages' do
+      within 'nav' do
+        expect(page).to_not have_link("Login")
+        expect(page).to_not have_link("Register")
+      end
+    end
+
+    it "I can see 'logged in as' message if logged in on all pages" do
+      within 'nav' do
+        expect(page).to have_content("Logged in as #{@admin.name}")
+      end
+    end
   end
 end
