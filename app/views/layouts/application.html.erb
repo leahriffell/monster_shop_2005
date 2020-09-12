@@ -20,12 +20,15 @@
         <%= link_to "Login", "/login" %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
       <% else %>
-      <% if current_user.role == "admin" %>
-      <%= link_to "Admin Dashboard", "/admin" %>
-      <%= link_to "All Users", "/admin/users" %>
-      <% else %>
-      <%= link_to "Cart: #{cart.total_items}", "/cart" %>
-      <% end %>
+        <% if current_user.role == "admin" %>
+          <%= link_to "Admin Dashboard", "/admin" %>
+          <%= link_to "All Users", "/admin/users" %>
+        <% elsif current_user.role == "merchant" %>
+          <%= link_to "Merchant Dashboard", "/merchant" %>
+          <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+        <% else %>
+        <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+        <% end %>
         <%= link_to "Profile", "/profile"%>
         <%= "Logged in as #{current_user.name}" %>
         <%= link_to "Logout", "/logout" %>
