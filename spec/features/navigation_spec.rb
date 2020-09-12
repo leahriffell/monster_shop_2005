@@ -33,5 +33,14 @@ RSpec.describe 'Site Navigation' do
       end
 
     end
+
+    it "I can see a profile link if logged in on all pages" do
+      visit '/merchants'
+
+      within 'nav' do
+        expect(page).to have_link("Profile")
+      end
+      
+    end
   end
 end
