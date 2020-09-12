@@ -140,6 +140,7 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_link("Profile")
         expect(page).to have_link("Logout")
         expect(page).to have_link("Merchant Dashboard")
+        expect(page).to have_content("Cart")
       end
     end
   end
