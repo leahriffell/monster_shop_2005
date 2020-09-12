@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Site Navigation' do
-  describe 'As a Visitor' do
+  describe 'As a Regular user' do
     before :each do
       @user = User.create(name:"Jackie Chan", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
 
