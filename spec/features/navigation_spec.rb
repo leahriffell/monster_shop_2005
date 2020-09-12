@@ -98,5 +98,15 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_content("Admin Dashboard")
       end
     end
+
+    it "I cannot see cart when logged in as an admin" do
+      fill_in :email, with: @admin.email
+      fill_in  :password, with: @admin.password
+      click_button "Login"
+
+      within 'nav' do
+        expect(page).to_not have_content("Cart")
+      end
+    end
   end
 end
