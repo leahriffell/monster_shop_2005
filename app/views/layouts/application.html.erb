@@ -22,13 +22,12 @@
         <% if current_user.role == "admin" %>
           <%= link_to "Admin Dashboard", "/admin" %>
         <% else %>
-          <% next %>
+          <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <% end %>
         <%= "Logged in as #{current_user.name}" %>
         <%= link_to "Logout", "/logout" %>
       <% end %>
-      
-      <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+
     </nav>
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">
