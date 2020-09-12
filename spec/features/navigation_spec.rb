@@ -243,9 +243,7 @@ RSpec.describe 'Site Navigation' do
       fill_in :email, with: @merchant.email
       fill_in  :password, with: @merchant.password
       click_button "Login"
-
       visit "/admin"
-
 
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end
