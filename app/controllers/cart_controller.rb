@@ -1,4 +1,4 @@
-class CartController < ApplicationController
+class CartController < Cart::BaseController
   def add_item
     item = Item.find(params[:item_id])
     cart.add_item(item.id.to_s)
