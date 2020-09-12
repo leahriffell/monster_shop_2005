@@ -3,6 +3,20 @@ require 'rails_helper'
 
 RSpec.describe 'Site Navigation' do
   describe 'As a Visitor' do
+    before :each do
+      @user = User.create(name:"Luke Hunter James-Erickson", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
+
+      visit '/merchants'
+      
+      within 'nav' do
+        click_link "Login"
+      end
+
+      fill_in :email, with: @user.email
+      fill_in  :password, with: @user.password
+      click_button "Login"
+    end
+
     it "I see a nav bar with links to all pages" do
       visit '/merchants'
 
