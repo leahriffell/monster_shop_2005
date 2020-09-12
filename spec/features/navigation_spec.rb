@@ -74,6 +74,15 @@ RSpec.describe 'Site Navigation' do
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end
 
+    it "can redirect an admin to 404 error if they try to access any path with /admin" do
+      fill_in :email, with: @admin.email
+      fill_in  :password, with: @admin.password
+      click_button "Login"
+
+      visit "/cart"
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
+
     it "I can see a profile link if logged in on all pages" do
       fill_in :email, with: @user.email
       fill_in  :password, with: @user.password
