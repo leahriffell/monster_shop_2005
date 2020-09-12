@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
-  
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       flash[:failure] = @user.errors.full_messages.to_sentence
       @user.email = nil
       render :new
-    else 
+    else
       flash[:failure] = @user.errors.full_messages.to_sentence
       render :new
     end
