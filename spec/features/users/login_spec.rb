@@ -10,7 +10,6 @@ RSpec.describe "Login Page", type: :feature do
       visit "/merchants"
 
       within(".topnav") do
-        expect(page).to have_link("Login")
         click_link "Login"
       end
     end

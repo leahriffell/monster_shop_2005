@@ -5,6 +5,8 @@ RSpec.describe 'Site Navigation' do
   describe 'As a Visitor' do
     before :each do
       @user = User.create(name:"Jackie Chan", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
+      @merchant = User.create(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "Leahsocool@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1)
+      @admin = User.create(name:"Priya", address:"13 Elm Street", city:"Denver", state:"CO", zip:"66666", email: "priyavcooltoo@gmail.com", password:"yuuuuuup", password_confirmation:"yuuuuuup", role: 2)
 
       visit "/"
     end
@@ -66,19 +68,19 @@ RSpec.describe 'Site Navigation' do
         end
 
         visit '/items'
-
+        
         within 'nav' do
           expect(page).to have_content("Cart: 0")
         end
       end
     end
-
+    
     describe 'I can see specific nav items if logged in' do 
       before :each do 
         within 'nav' do
           click_link "Login"
         end
-
+        
         fill_in :email, with: @user.email
         fill_in  :password, with: @user.password
         click_button "Login"
@@ -106,6 +108,36 @@ RSpec.describe 'Site Navigation' do
       it "I can see 'logged in as' message if logged in on all pages" do
         within 'nav' do
           expect(page).to have_content("Logged in as #{@user.name}")
+        end
+      end
+    end
+
+    describe 'I can see specific nav items if logged in as admin' do 
+      before :each do 
+        within 'nav' do
+          click_link "Login"
+        end
+        
+        fill_in :email, with: @admin.email
+        fill_in  :password, with: @admin.password
+        click_button "Login"
+      end
+
+      it "I can see Admin Dashboard when logged in as an admin" do
+        within 'nav' do
+          expect(page).to have_content("Admin Dashboard")
+        end
+      end
+
+      it "I can see All Users when logged in as an admin" do
+        within 'nav' do
+          expect(page).to have_content("All Users")
+        end
+      end
+
+      it "I cannot see cart when logged in as an admin" do
+        within 'nav' do
+          expect(page).to_not have_content("Cart")
         end
       end
     end
