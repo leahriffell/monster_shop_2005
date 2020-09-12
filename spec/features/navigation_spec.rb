@@ -138,17 +138,44 @@ RSpec.describe 'Site Navigation' do
           expect(page).to have_content("Logged in as #{@user.name}")
         end
       end
+    end
 
-      describe 'I cannot access certain areas as a regular user' do
-        it "can redirect a user to 404 error if they try to access any path with /merchant" do
-          visit "/merchants"
-          expect(page).to have_content("The page you were looking for doesn't exist.")
+    describe 'I cannot access certain areas as a vistor' do
+      it "can to 404 error if I try to access any path with /merchant" do
+        visit "/merchants"
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+  
+      it "can redirect to 404 error if I try to access any path with /admin" do
+        visit "/admin"
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+        
+      it "can redirect to 404 error if I try and access profile" do
+        visit "/profile"
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+    end
+
+    describe 'I cannot access certain areas as a regular user' do
+      before :each do 
+        within 'nav' do
+          click_link "Login"
         end
-    
-        it "can redirect a user to 404 error if they try to access any path with /admin" do
-          visit "/admin"
-          expect(page).to have_content("The page you were looking for doesn't exist.")
-        end
+        
+        fill_in :email, with: @user.email
+        fill_in  :password, with: @user.password
+        click_button "Login"
+      end
+
+      it "can redirect to 404 error if I try to access any path with /merchant" do
+        visit "/merchants"
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+  
+      it "can redirect to 404 error if I try to access any path with /admin" do
+        visit "/admin"
+        expect(page).to have_content("The page you were looking for doesn't exist.")
       end
     end
 
@@ -183,6 +210,10 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I see the same links as a regular user and a link to merchant dashboard" do
+      within 'nav' do
+        click_link "Login"
+      end
+
       fill_in :email, with: @merchant.email
       fill_in  :password, with: @merchant.password
       click_button "Login"
