@@ -2,7 +2,6 @@ class SessionsController < ApplicationController
 
   def new
     if current_user
-      # Can we make this condition a model method (maybe a case statement)? Use it to refactor sessions#create as well?
       if current_user.role == "admin"
         redirect_to(admin_dashboard_path)
       elsif current_user.role == "merchant"
@@ -31,6 +30,13 @@ class SessionsController < ApplicationController
         redirect_to(profile_path)
       end
     end
+  end
+
+  def destroy
+    cart.empty_cart
+    session.delete(:user_id)
+    flash[:success] = "Congrats, you're leaving, but you should stay!"
+    redirect_to root_path
   end
 
 

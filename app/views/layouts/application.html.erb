@@ -13,10 +13,13 @@
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
       <%= link_to "Register", "/register"%>
-<<<<<<< HEAD
       <%= link_to "Login", "/login" %>
-=======
->>>>>>> b57cc46645ad0c2cfaeed6614f66e9f68be11c0a
+      <% if !current_user %>
+          <%= link_to "Register", "/register"%>
+          <%= link_to "Login", "/login" %>
+      <% else %>
+          <%= link_to "Logout", "/logout" %>
+      <% end %>
       <%= link_to "Cart: #{cart.total_items}", "/cart" %>
 
     </nav>

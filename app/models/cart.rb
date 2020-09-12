@@ -32,4 +32,8 @@ class Cart
     end
   end
 
+  def empty_cart
+    @contents.clear
+  end
+
 end
