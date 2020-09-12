@@ -77,7 +77,7 @@ RSpec.describe 'Site Navigation' do
       visit '/merchants'
 
       within 'nav' do
-        expect(page).to_not have_content("Logged in as #{@user.name}")
+        expect(page).to have_content("Logged in as #{@user.name}")
       end
     end
   end
