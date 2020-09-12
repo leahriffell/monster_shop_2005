@@ -59,6 +59,38 @@ RSpec.describe 'Site Navigation' do
     it "can redirect a user to 404 error if they try to access any path with /admin" do
 
     end
-    # =========================================================
+
+    it "I can see a profile link if logged in on all pages" do
+      visit '/merchants'
+
+      within 'nav' do
+        expect(page).to have_link("Profile")
+      end
+    end
+
+    it "I can see a logout link if logged in on all pages" do
+      visit '/merchants'
+
+      within 'nav' do
+        expect(page).to have_link("Logout")
+      end
+    end
+
+    it "I cannot see a login or register link if logged in on all pages" do
+      visit '/merchants'
+
+      within 'nav' do
+        expect(page).to_not have_link("Login")
+        expect(page).to_not have_link("Register")
+      end
+    end
+
+    it "I can see 'logged in as' message if logged in on all pages" do
+      visit '/merchants'
+
+      within 'nav' do
+        expect(page).to have_content("Logged in as #{@user.name}")
+      end
+    end
   end
 end
