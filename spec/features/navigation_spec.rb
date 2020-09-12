@@ -110,20 +110,30 @@ RSpec.describe 'Site Navigation' do
           expect(page).to have_content("Logged in as #{@user.name}")
         end
       end
-
-      describe 'I cannot access certain areas as a regular user' do
-        it "can redirect a user to 404 error if they try to access any path with /merchant" do
-          visit "/merchants"
-          expect(page).to have_content("The page you were looking for doesn't exist.")
-        end
-    
-        it "can redirect a user to 404 error if they try to access any path with /admin" do
-          visit "/admin"
-          expect(page).to have_content("The page you were looking for doesn't exist.")
-        end
-      end
     end
 
+    describe 'I cannot access certain areas as a regular user' do
+      before :each do 
+        within 'nav' do
+          click_link "Login"
+        end
+        
+        fill_in :email, with: @user.email
+        fill_in  :password, with: @user.password
+        click_button "Login"
+      end
+
+      it "can redirect a user to 404 error if they try to access any path with /merchant" do
+        visit "/merchants"
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+  
+      it "can redirect a user to 404 error if they try to access any path with /admin" do
+        visit "/admin"
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+    end
+    
     describe 'I can see specific nav items if logged in as admin' do 
       before :each do 
         within 'nav' do
