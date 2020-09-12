@@ -11,8 +11,8 @@ RSpec.describe 'Site Navigation' do
       visit "/"
     end
 
-    describe 'I can link to all pages within nav' do 
-      it 'can link to home page' do 
+    describe 'I can link to all pages within nav' do
+      it 'can link to home page' do
         within 'nav' do
           click_link 'Home'
         end
@@ -28,7 +28,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq('/items')
       end
 
-      it 'can link to merchants index' do 
+      it 'can link to merchants index' do
         within 'nav' do
           click_link 'All Merchants'
         end
@@ -36,7 +36,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq('/merchants')
       end
 
-      it 'can link to cart' do 
+      it 'can link to cart' do
         within 'nav' do
           click_link 'Cart'
         end
@@ -44,7 +44,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq("/cart")
       end
 
-      it 'can link to login' do 
+      it 'can link to login' do
         within 'nav' do
           click_link 'Login'
         end
@@ -52,15 +52,19 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq("/login")
       end
 
-      it 'can link to user registration' do 
+      it 'can link to user registration' do
         within 'nav' do
           click_link 'Register'
         end
 
         expect(current_path).to eq("/register")
       end
-      
+
       it "can redirect an admin to 404 error if they try to access any path with /merchant" do
+        within 'nav' do
+          click_link "Login"
+        end
+
         fill_in :email, with: @admin.email
         fill_in  :password, with: @admin.password
         click_button "Login"
@@ -70,6 +74,10 @@ RSpec.describe 'Site Navigation' do
       end
 
       it "can redirect an admin to 404 error if they try to access any path with /admin" do
+        within 'nav' do
+          click_link "Login"
+        end
+
         fill_in :email, with: @admin.email
         fill_in  :password, with: @admin.password
         click_button "Login"
@@ -79,31 +87,31 @@ RSpec.describe 'Site Navigation' do
       end
     end
 
-    describe 'I can see cart indicator on all pages' do 
+    describe 'I can see cart indicator on all pages' do
       it 'sees number of items in cart' do
         within 'nav' do
           expect(page).to have_content("Cart: 0")
         end
 
         visit '/items'
-        
+
         within 'nav' do
           expect(page).to have_content("Cart: 0")
         end
       end
     end
-    
-    describe 'I can see specific nav items if logged in' do 
-      before :each do 
+
+    describe 'I can see specific nav items if logged in' do
+      before :each do
         within 'nav' do
           click_link "Login"
         end
-        
+
         fill_in :email, with: @user.email
         fill_in  :password, with: @user.password
         click_button "Login"
       end
-      
+
       it "can redirect a regular user to 404 error if they try to access any path with /merchant" do
         visit "/merchants"
         expect(page).to have_content("The page you were looking for doesn't exist.")
@@ -132,7 +140,7 @@ RSpec.describe 'Site Navigation' do
           expect(page).to_not have_link("Register")
         end
       end
-    
+
       it "I can see 'logged in as' message if logged in on all pages" do
         within 'nav' do
           expect(page).to have_content("Logged in as #{@user.name}")
@@ -145,12 +153,12 @@ RSpec.describe 'Site Navigation' do
         visit "/merchants"
         expect(page).to have_content("The page you were looking for doesn't exist.")
       end
-  
+
       it "can redirect to 404 error if I try to access any path with /admin" do
         visit "/admin"
         expect(page).to have_content("The page you were looking for doesn't exist.")
       end
-        
+
       it "can redirect to 404 error if I try and access profile" do
         visit "/profile"
         expect(page).to have_content("The page you were looking for doesn't exist.")
@@ -158,11 +166,11 @@ RSpec.describe 'Site Navigation' do
     end
 
     describe 'I cannot access certain areas as a regular user' do
-      before :each do 
+      before :each do
         within 'nav' do
           click_link "Login"
         end
-        
+
         fill_in :email, with: @user.email
         fill_in  :password, with: @user.password
         click_button "Login"
@@ -172,19 +180,19 @@ RSpec.describe 'Site Navigation' do
         visit "/merchants"
         expect(page).to have_content("The page you were looking for doesn't exist.")
       end
-  
+
       it "can redirect to 404 error if I try to access any path with /admin" do
         visit "/admin"
         expect(page).to have_content("The page you were looking for doesn't exist.")
       end
     end
 
-    describe 'I can see specific nav items if logged in as admin' do 
-      before :each do 
+    describe 'I can see specific nav items if logged in as admin' do
+      before :each do
         within 'nav' do
           click_link "Login"
         end
-        
+
         fill_in :email, with: @admin.email
         fill_in  :password, with: @admin.password
         click_button "Login"
@@ -225,6 +233,21 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_link("Merchant Dashboard")
         expect(page).to have_content("Cart")
       end
+
+    end
+    it "can redirect to 404 error if I try to access any path with /admin" do
+      within 'nav' do
+        click_link "Login"
+      end
+
+      fill_in :email, with: @merchant.email
+      fill_in  :password, with: @merchant.password
+      click_button "Login"
+
+      visit "/admin"
+
+
+      expect(page).to have_content("The page you were looking for doesn't exist.")
     end
   end
 end
