@@ -47,13 +47,18 @@ RSpec.describe 'Site Navigation' do
       end
     end
 
-    it "can redirect a user to 404 error if they try to access any path with /merchant" do
+    it "can redirect a regular user to 404 error if they try to access any path with /merchant" do
       visit "/merchants"
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end
 
-    it "can redirect a user to 404 error if they try to access any path with /admin" do
+    it "can redirect a regular user to 404 error if they try to access any path with /admin" do
       visit "/admin"
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+    end
+
+    it "can redirect an admin to 404 error if they try to access any path with /merchant" do
+      visit "/merchants"
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end
 
