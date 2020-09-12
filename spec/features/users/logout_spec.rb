@@ -85,10 +85,6 @@ RSpec.describe "Logout process", type: :feature do
       click_button "Login"
 
       within(".topnav") do
-        expect(page).to have_link("Cart: 1")
-      end
-
-      within(".topnav") do
         expect(page).to have_link("Logout")
         expect(page).to_not have_link("Login")
         expect(page).to_not have_link("Register")
