@@ -12,8 +12,6 @@
     <nav class = "topnav">
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
-      <%= link_to "Register", "/register"%>
-      <%= link_to "Login", "/login" %>
       <% if !current_user %>
           <%= link_to "Register", "/register"%>
           <%= link_to "Login", "/login" %>
