@@ -2,12 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Site Navigation' do
-  describe 'As a Visitor' do
+  describe 'As any user' do
     before :each do
-      @user = User.create(name:"Jackie Chan", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
-      @merchant = User.create(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "Leahsocool@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1)
-      @admin = User.create(name:"Priya", address:"13 Elm Street", city:"Denver", state:"CO", zip:"66666", email: "priyavcooltoo@gmail.com", password:"yuuuuuup", password_confirmation:"yuuuuuup", role: 2)
-
       visit "/"
     end
 
@@ -35,15 +31,9 @@ RSpec.describe 'Site Navigation' do
 
         expect(current_path).to eq('/merchants')
       end
+    end
 
-      it 'can link to cart' do
-        within 'nav' do
-          click_link 'Cart'
-        end
-
-        expect(current_path).to eq("/cart")
-      end
-
+    describe 'As a non-logged-in user, I can login or register' do
       it 'can link to login' do
         within 'nav' do
           click_link 'Login'
@@ -59,35 +49,17 @@ RSpec.describe 'Site Navigation' do
 
         expect(current_path).to eq("/register")
       end
-
-      it "can redirect an admin to 404 error if they try to access any path with /merchant" do
-        within 'nav' do
-          click_link "Login"
-        end
-
-        fill_in :email, with: @admin.email
-        fill_in  :password, with: @admin.password
-        click_button "Login"
-
-        visit "/merchants"
-        expect(page).to have_content("The page you were looking for doesn't exist.")
-      end
-
-      it "can redirect an admin to 404 error if they try to access any path with /admin" do
-        within 'nav' do
-          click_link "Login"
-        end
-
-        fill_in :email, with: @admin.email
-        fill_in  :password, with: @admin.password
-        click_button "Login"
-
-        visit "/cart"
-        expect(page).to have_content("The page you were looking for doesn't exist.")
-      end
     end
 
-    describe 'I can see cart indicator on all pages' do
+    describe 'As a non-admin user, I can see cart indicator on all pages' do
+      it 'can link to cart' do
+        within 'nav' do
+          click_link 'Cart'
+        end
+
+        expect(current_path).to eq("/cart")
+      end
+
       it 'sees number of items in cart' do
         within 'nav' do
           expect(page).to have_content("Cart: 0")
@@ -99,153 +71,6 @@ RSpec.describe 'Site Navigation' do
           expect(page).to have_content("Cart: 0")
         end
       end
-    end
-
-    describe 'I can see specific nav items if logged in' do
-      before :each do
-        within 'nav' do
-          click_link "Login"
-        end
-
-        fill_in :email, with: @user.email
-        fill_in  :password, with: @user.password
-        click_button "Login"
-      end
-
-      it "can redirect a regular user to 404 error if they try to access any path with /merchant" do
-        visit "/merchants"
-        expect(page).to have_content("The page you were looking for doesn't exist.")
-      end
-
-      it "can redirect a regular user to 404 error if they try to access any path with /admin" do
-        visit "/admin"
-        expect(page).to have_content("The page you were looking for doesn't exist.")
-      end
-
-      it 'I can see a profile link if logged in on all pages' do
-        within 'nav' do
-          expect(page).to have_link("Profile")
-        end
-      end
-
-      it 'I can see a logout link if logged in on all pages' do
-        within 'nav' do
-          expect(page).to have_link("Logout")
-        end
-      end
-
-      it 'I cannot see a login or register link if logged in on all pages' do
-        within 'nav' do
-          expect(page).to_not have_link("Login")
-          expect(page).to_not have_link("Register")
-        end
-      end
-
-      it "I can see 'logged in as' message if logged in on all pages" do
-        within 'nav' do
-          expect(page).to have_content("Logged in as #{@user.name}")
-        end
-      end
-    end
-
-    describe 'I cannot access certain areas as a vistor' do
-      it "can to 404 error if I try to access any path with /merchant" do
-        visit "/merchants"
-        expect(page).to have_content("The page you were looking for doesn't exist.")
-      end
-
-      it "can redirect to 404 error if I try to access any path with /admin" do
-        visit "/admin"
-        expect(page).to have_content("The page you were looking for doesn't exist.")
-      end
-
-      it "can redirect to 404 error if I try and access profile" do
-        visit "/profile"
-        expect(page).to have_content("The page you were looking for doesn't exist.")
-      end
-    end
-
-    describe 'I cannot access certain areas as a regular user' do
-      before :each do
-        within 'nav' do
-          click_link "Login"
-        end
-
-        fill_in :email, with: @user.email
-        fill_in  :password, with: @user.password
-        click_button "Login"
-      end
-
-      it "can redirect to 404 error if I try to access any path with /merchant" do
-        visit "/merchants"
-        expect(page).to have_content("The page you were looking for doesn't exist.")
-      end
-
-      it "can redirect to 404 error if I try to access any path with /admin" do
-        visit "/admin"
-        expect(page).to have_content("The page you were looking for doesn't exist.")
-      end
-    end
-
-    describe 'I can see specific nav items if logged in as admin' do
-      before :each do
-        within 'nav' do
-          click_link "Login"
-        end
-
-        fill_in :email, with: @admin.email
-        fill_in  :password, with: @admin.password
-        click_button "Login"
-      end
-
-      it "I can see Admin Dashboard when logged in as an admin" do
-        within 'nav' do
-          expect(page).to have_content("Admin Dashboard")
-        end
-      end
-
-      it "I can see All Users when logged in as an admin" do
-        within 'nav' do
-          expect(page).to have_content("All Users")
-        end
-      end
-
-      it "I cannot see cart when logged in as an admin" do
-        within 'nav' do
-          expect(page).to_not have_content("Cart")
-        end
-      end
-    end
-
-    it "I see the same links as a regular user and a link to merchant dashboard" do
-      within 'nav' do
-        click_link "Login"
-      end
-
-      fill_in :email, with: @merchant.email
-      fill_in  :password, with: @merchant.password
-      click_button "Login"
-
-      within 'nav' do
-        expect(page).to have_content("Logged in as #{@merchant.name}")
-        expect(page).to have_link("Profile")
-        expect(page).to have_link("Logout")
-        expect(page).to have_link("Merchant Dashboard")
-        expect(page).to have_content("Cart")
-      end
-
-    end
-    it "can redirect to 404 error if I try to access any path with /admin" do
-      within 'nav' do
-        click_link "Login"
-      end
-
-      fill_in :email, with: @merchant.email
-      fill_in  :password, with: @merchant.password
-      click_button "Login"
-      visit "/admin"
-
-      expect(page).to have_content("The page you were looking for doesn't exist.")
     end
   end
 end
