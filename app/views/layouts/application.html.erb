@@ -24,6 +24,9 @@
         <% if current_user.role == "admin" %>
           <%= link_to "Admin Dashboard", "/admin" %>
           <%= link_to "All Users", "/admin/users" %>
+        <% elsif current_user.role == "merchant" %>
+            <%= link_to "Merchant Dashboard", "/merchant" %>
+            <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <% else %>
           <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <% end %>

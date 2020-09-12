@@ -153,5 +153,19 @@ RSpec.describe 'Site Navigation' do
         end
       end
     end
+
+    it "I see the same links as a regular user and a link to merchant dashboard" do
+      fill_in :email, with: @merchant.email
+      fill_in  :password, with: @merchant.password
+      click_button "Login"
+
+      within 'nav' do
+        expect(page).to have_content("Logged in as #{@merchant.name}")
+        expect(page).to have_link("Profile")
+        expect(page).to have_link("Logout")
+        expect(page).to have_link("Merchant Dashboard")
+        expect(page).to have_content("Cart")
+      end
+    end
   end
 end
