@@ -112,6 +112,23 @@ RSpec.describe 'Site Navigation' do
       end
     end
 
+    describe 'I cannot access certain areas as a vistor' do
+      it "can to 404 error if I try to access any path with /merchant" do
+        visit "/merchants"
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+  
+      it "can redirect to 404 error if I try to access any path with /admin" do
+        visit "/admin"
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+        
+      it "can redirect to 404 error if I try and access profile" do
+        visit "/profile"
+        expect(page).to have_content("The page you were looking for doesn't exist.")
+      end
+    end
+
     describe 'I cannot access certain areas as a regular user' do
       before :each do 
         within 'nav' do
@@ -123,17 +140,17 @@ RSpec.describe 'Site Navigation' do
         click_button "Login"
       end
 
-      it "can redirect a user to 404 error if they try to access any path with /merchant" do
+      it "can redirect to 404 error if I try to access any path with /merchant" do
         visit "/merchants"
         expect(page).to have_content("The page you were looking for doesn't exist.")
       end
   
-      it "can redirect a user to 404 error if they try to access any path with /admin" do
+      it "can redirect to 404 error if I try to access any path with /admin" do
         visit "/admin"
         expect(page).to have_content("The page you were looking for doesn't exist.")
       end
     end
-    
+
     describe 'I can see specific nav items if logged in as admin' do 
       before :each do 
         within 'nav' do
