@@ -40,7 +40,14 @@ RSpec.describe 'Site Navigation' do
       within 'nav' do
         expect(page).to have_link("Profile")
       end
-      
+    end
+
+    it "I can see a logout link if logged in on all pages" do
+      visit '/merchants'
+
+      within 'nav' do
+        expect(page).to have_link("Logout")
+      end
     end
   end
 end
