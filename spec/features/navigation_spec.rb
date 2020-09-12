@@ -99,6 +99,17 @@ RSpec.describe 'Site Navigation' do
       end
     end
 
+    # it "I can see Admin Dashboard when logged in as an merchant" do
+    #   fill_in :email, with: @merchant.email
+    #   fill_in  :password, with: @merchant.password
+    #   click_button "Login"
+    #
+    #   within 'nav' do
+    #     expect(page).to have_content("Merchant Dashboard")
+    #     expect(page).to have_content("Cart")
+    #   end
+    # end
+
     it "I can see Admin Dashboard when logged in as an admin" do
       fill_in :email, with: @admin.email
       fill_in  :password, with: @admin.password
