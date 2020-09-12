@@ -49,5 +49,14 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_link("Logout")
       end
     end
+
+    it "I cannot see a login or register link if logged in on all pages" do
+      visit '/merchants'
+
+      within 'nav' do
+        expect(page).to_not have_link("Login")
+        expect(page).to_not have_link("Register")
+      end
+    end
   end
 end
