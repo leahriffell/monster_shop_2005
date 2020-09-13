@@ -32,9 +32,7 @@ RSpec.describe 'Cart show' do
 
     it "requires a visitor to login before checking out" do
       visit "/cart"
-
-      expect(page).to have_link("Checkout")
-
+      
       click_on "Checkout"
 
       expect(page).to have_content("You must Register or Log In before checking out")
@@ -44,13 +42,20 @@ RSpec.describe 'Cart show' do
 
     it "has a Register link which links to registration page" do
       visit "/cart"
-
-      expect(page).to have_link("Checkout")
-
       click_on "Checkout"
 
       click_on "Register"
+
       expect(current_path).to eq("/register")
+    end
+
+    it "has a Log In link which links to registration page" do
+      visit "/cart"
+      click_on "Checkout"
+
+      click_on "Log In"
+
+      expect(current_path).to eq("/login")
     end
   end
 
