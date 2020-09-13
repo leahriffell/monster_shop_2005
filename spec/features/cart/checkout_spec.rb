@@ -33,7 +33,7 @@ RSpec.describe 'Cart show' do
     it "requires a visitor to login before checking out" do
       visit "/cart"
 
-      # expect(page).to have_content("You must Register or Log In before checking out")
+      expect(page).to have_content("You must Register or Log In to finish checking out.")
       expect(page).to have_link("Register")
       expect(page).to have_link("Log In")
     end
@@ -41,7 +41,11 @@ RSpec.describe 'Cart show' do
     it "has a Register link which links to registration page" do
       visit "/cart"
 
-      click_on "Register"
+      # Without the below, it was giving an Ambiguous Match error because there are two "Register"'s on the page if they're not logged in.  One in the nav, one in the message below.  When I put the ! in front of the within, with the hope that that means "not within", the test does pass ... but I am not sure it's actually working, or if the test just doesn't understand what that is trying to do and is skipping it entirely.
+      # The reason I think it's working is because line 50 *is* passing, which wouldn't make any sense if line 47 wasn't working.  Something to think on...
+      !within 'nav' do
+        click_on "Register"
+      end
 
       expect(current_path).to eq("/register")
     end
