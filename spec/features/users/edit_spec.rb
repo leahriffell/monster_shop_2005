@@ -17,8 +17,8 @@ RSpec.describe "edit user profile data", type: :feature do
       expect(find_field(:state).value).to eq(@user.state)
       expect(find_field(:zip).value).to eq(@user.zip)
       expect(find_field(:email).value).to eq(@user.email)
+      expect(page).to_not have_content("Password")
       expect(page).to_not have_content(@user.password)
-      # expect(page).to_not have_content("Password")
     end
 
     it "can change information" do 

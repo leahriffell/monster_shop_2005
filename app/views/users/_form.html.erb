@@ -11,10 +11,13 @@
 <%= text_field_tag :zip, current_user.zip, placeholder: "Zip" %><br>
 <%= label_tag :email %><br>
 <%= text_field_tag :email, current_user.email, placeholder: "Email" %><br>
-<%= label_tag :password %><br>
-<%= text_field_tag :password, nil, placeholder: "Password" %><br>
-<%= label_tag :password_confirmation %><br>
-<%= text_field_tag :password_confirmation, nil, placeholder: "Password Confirmation" %><br>
+
+<% if current_visitor? %>
+  <%= label_tag :password %><br>
+  <%= text_field_tag :password, nil, placeholder: "Password" %><br>
+  <%= label_tag :password_confirmation %><br>
+  <%= text_field_tag :password_confirmation, nil, placeholder: "Password Confirmation" %><br>
+<% end %>
 
 <%= submit_tag button_text, class: :button %>
 <% end %>
