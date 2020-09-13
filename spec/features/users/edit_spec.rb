@@ -18,19 +18,26 @@ RSpec.describe "edit user profile data", type: :feature do
       expect(find_field(:zip).value).to eq(@user.zip)
       expect(find_field(:email).value).to eq(@user.email)
       expect(page).to_not have_content(@user.password)
+      # expect(page).to_not have_content("Password")
+    end
+
+    it "can change information" do 
+      fill_in(:name, with: "LHJE")
+      fill_in(:address, with: "555 Street")
+      fill_in(:city, with: "New York")
+      fill_in(:state, with: "NY")
+      fill_in(:zip, with: "12345")
+      fill_in(:email, with: "zealot@gmail.com")
+      click_button "Update"
+
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content("Your profile info has been updated.")
+      expect(page).to have_content("LHJE")
+      expect(page).to have_content("555 Street")
+      expect(page).to have_content("New York")
+      expect(page).to have_content("NY")
+      expect(page).to have_content("12345")
+      expect(page).to have_content("zealot@gmail.com")
     end
   end
-
-
-#   As a registered user
-# When I visit my profile page
-# I see a link to edit my profile data
-# When I click on the link to edit my profile data
-# I see a form like the registration page
-# The form is prepopulated with all my current information except my password
-# When I change any or all of that information
-# And I submit the form
-# Then I am returned to my profile page
-# And I see a flash message telling me that my data is updated
-# And I see my updated information
 end

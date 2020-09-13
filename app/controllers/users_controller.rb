@@ -29,6 +29,9 @@ class UsersController < ApplicationController
   end
 
   def update
+    current_user.update(user_params)
+    flash[:success] = "Your profile info has been updated."
+    redirect_to profile_path
   end
 
   private
