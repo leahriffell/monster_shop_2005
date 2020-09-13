@@ -86,6 +86,8 @@ describe Item, type: :model do
       @item_order_9 = ItemOrder.create!(order: @order_2, item: @item_9, price: @item_9.price, quantity: 90)
       @item_order_10 = ItemOrder.create!(order: @order_3, item: @item_10, price: @item_10.price, quantity: 100)
       @item_order_11 = ItemOrder.create!(order: @order_3, item: @item_12, price: @item_10.price, quantity: 61)
+      # edge case for non-active item having past orders
+      @item_order_12 = ItemOrder.create!(order: @order_3, item: @item_11, price: @item_10.price, quantity: 600)
     end
 
     describe ".active_items" do
@@ -95,15 +97,21 @@ describe Item, type: :model do
     end
 
     describe '.most_popular_items' do
-      it 'can return the five most popular items by quantity purchased' do 
+      it 'can return the five most popular active items by quantity purchased' do 
         expect(Item.most_popular_items).to eq([@item_1, @item_10, @item_9, @item_8, @item_7])
       end
     end
 
     describe '.least_popular_items' do
-      it 'can return the five least popular items by quantity purchased' do 
+      it 'can return the five least popular active items by quantity purchased' do 
         expect(Item.least_popular_items).to eq([@item_2, @item_3, @item_4, @item_5, @item_6])
       end
-    end  
+    end 
+    
+    # describe '.other_items' do
+    #   it 'can return active items not in top or bottom 5' do 
+    #     expect(Item.other_items).to eq([@item_12])
+    #   end
+    # end
   end
 end

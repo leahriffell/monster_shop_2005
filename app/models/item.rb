@@ -17,12 +17,16 @@ class Item <ApplicationRecord
   end
 
   def self.most_popular_items
-    Item.select("items.*,sum(quantity) as sum_qty").joins(:item_orders).group(:id).order(sum_qty: :desc).limit(5)
+    active_items.select("items.*,sum(quantity) as sum_qty").joins(:item_orders).group(:id).order(sum_qty: :desc).limit(5)
   end
   
   def self.least_popular_items
-    Item.select("items.*,sum(quantity) as sum_qty").joins(:item_orders).group(:id).order(:sum_qty).limit(5)
+    active_items.select("items.*,sum(quantity) as sum_qty").joins(:item_orders).group(:id).order(:sum_qty).limit(5)
   end
+
+  # def self.other_items
+    
+  # end
 
   def average_review
     reviews.average(:rating)
