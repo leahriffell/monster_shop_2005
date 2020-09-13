@@ -22,4 +22,9 @@ RSpec.describe "user profile page", type: :feature do
       expect(page).to_not have_content(@user.password_confirmation)
     end
   end
+
+  it "can link to form for editing profile data" do 
+    click_link "Edit Profile"
+    expect(page).to eq(profile_edit_path)
+  end
 end
