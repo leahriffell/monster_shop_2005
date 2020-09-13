@@ -7,4 +7,8 @@ class ItemOrder <ApplicationRecord
   def subtotal
     price * quantity
   end
+
+  def self.most_popular_items 
+    ItemOrder.order(quantity: :desc).limit(5).pluck(:item_id)
+  end
 end
