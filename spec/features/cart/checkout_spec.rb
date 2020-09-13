@@ -32,8 +32,6 @@ RSpec.describe 'Cart show' do
 
     it "requires a visitor to login before checking out" do
       visit "/cart"
-      
-      click_on "Checkout"
 
       expect(page).to have_content("You must Register or Log In before checking out")
       expect(page).to have_link("Register")
@@ -42,7 +40,6 @@ RSpec.describe 'Cart show' do
 
     it "has a Register link which links to registration page" do
       visit "/cart"
-      click_on "Checkout"
 
       click_on "Register"
 
@@ -51,11 +48,30 @@ RSpec.describe 'Cart show' do
 
     it "has a Log In link which links to registration page" do
       visit "/cart"
-      click_on "Checkout"
 
       click_on "Log In"
 
       expect(current_path).to eq("/login")
+    end
+
+    it "does not prompt useres to login before checking out" do
+      @user = User.create(name:"Jackie Chan", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
+
+      visit "/"
+
+      within 'nav' do
+        click_link "Login"
+      end
+
+      fill_in :email, with: @user.email
+      fill_in  :password, with: @user.password
+      click_button "Login"
+
+      visit "/cart"
+
+      expect(page).to_not have_content("You must Register or Log In before checking out")
+      expect(page).to_not have_link("Register")
+      expect(page).to_not have_link("Log In")
     end
   end
 
