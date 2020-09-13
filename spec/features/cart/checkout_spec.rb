@@ -41,6 +41,17 @@ RSpec.describe 'Cart show' do
       expect(page).to have_link("Register")
       expect(page).to have_link("Log In")
     end
+
+    it "has a Register link which links to registration page" do
+      visit "/cart"
+
+      expect(page).to have_link("Checkout")
+
+      click_on "Checkout"
+
+      click_on "Register"
+      expect(current_path).to eq("/register")
+    end
   end
 
   describe 'When I havent added items to my cart' do
