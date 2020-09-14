@@ -39,6 +39,7 @@
         <center>
           <p><%= button_to "+", "/cart/#{item.id}", id:"plus", method: :patch %></p>
           <p><%=quantity%></p>
+          <p><%= button_to "+", "/cart/#{item.id}", id:"minus", method: :put %></p>
           <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
         </center>
         </td>
