@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe("New Order Page") do
   describe "When I check out from my cart" do
     before(:each) do
@@ -16,11 +18,11 @@ RSpec.describe("New Order Page") do
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
     end
+
     it "I see all the information about my current cart" do
       visit "/cart"
 
       click_on "Checkout"
-
       within "#order-item-#{@tire.id}" do
         expect(page).to have_link(@tire.name)
         expect(page).to have_link("#{@tire.merchant.name}")
