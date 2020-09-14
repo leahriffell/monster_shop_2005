@@ -36,7 +36,6 @@ class UsersController < ApplicationController
   def update
     current_user.update(user_params)
     if user_params[:password]
-      # password is saving in both conditionals
       if current_user.save
         flash[:success] = "Your password has been updated."
         redirect_to profile_path
@@ -45,8 +44,6 @@ class UsersController < ApplicationController
         render :change_password
       end
     else 
-      # profile info doesn't save to db or reflect updates on profile but tests are passing
-      require 'pry'; binding.pry
       flash[:success] = "Your profile info has been updated."
       redirect_to profile_path
     end
@@ -56,5 +53,4 @@ class UsersController < ApplicationController
   def user_params
     params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
   end
-
 end
