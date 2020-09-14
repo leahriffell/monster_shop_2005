@@ -112,6 +112,7 @@ RSpec.describe "Items Index Page" do
     end
       
     it "can see a section with least popular items and their qty purchased" do 
+      save_and_open_page
       within ".least-popular" do
         expect(page).to have_link(@item_2.name)
         expect(page).to have_link(@item_3.name)

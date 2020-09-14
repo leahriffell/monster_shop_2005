@@ -90,11 +90,11 @@ describe Item, type: :model do
       @item_order_12 = ItemOrder.create!(order: @order_3, item: @item_11, price: @item_10.price, quantity: 600)
     end
 
-    describe ".active_items" do
-      it "can return list of only active items" do
-        expect(Item.active_items).to eq([@item_1, @item_2, @item_3, @item_4, @item_5, @item_6, @item_7, @item_8, @item_9, @item_10, @item_12])
-      end
-    end
+    # describe ".active_items" do
+    #   it "can return list of only active items" do
+    #     expect(Item.active_items).to eq([@item_1, @item_2, @item_3, @item_4, @item_5, @item_6, @item_7, @item_8, @item_9, @item_10, @item_12])
+    #   end
+    # end
 
     describe '.most_popular_items' do
       it 'can return the five most popular active items by quantity purchased' do 
@@ -110,7 +110,6 @@ describe Item, type: :model do
     
     # describe '.other_items' do
     #   it 'can return active items not in top or bottom 5' do 
-    #     expect(Item.other_items).to eq([@item_12])
     #   end
     # end
   end
