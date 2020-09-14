@@ -44,8 +44,11 @@ RSpec.describe 'Cart creation' do
         visit "/items/#{@quantity_test_object_visitor.id}"
         click_on "Add To Cart"
 
-        visit "/cart"
-        save_and_open_page
+        within '.topnav' do
+          expect(page).to have_content("Cart: 1")
+          click_link "Cart: 1"
+        end
+
         @cart_visitor.each do |item|
           within "#cart-item-#{item.id}" do
             expect(page).to have_button("plus")
@@ -53,7 +56,6 @@ RSpec.describe 'Cart creation' do
           end
         end
 
-        # LEFT OFF HERE - there is a pry in cartcontroller - follow logic from here
         expect(page).to have_content("You have updated a quantity in your cart")
 
         click_button("plus")
