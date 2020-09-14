@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Cart show' do
+
+  describe 'When I havent added items to my cart' do
+    it 'There is not a link to checkout' do
+      visit "/cart"
+
+      expect(page).to_not have_link("Checkout")
+    end
+  end
+
   describe 'When I have added items to my cart' do
     before(:each) do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -41,8 +50,6 @@ RSpec.describe 'Cart show' do
     it "has a Register link which links to registration page" do
       visit "/cart"
 
-      # Without the below, it was giving an Ambiguous Match error because there are two "Register"'s on the page if they're not logged in.  One in the nav, one in the message below.  When I put the ! in front of the within, with the hope that that means "not within", the test does pass ... but I am not sure it's actually working, or if the test just doesn't understand what that is trying to do and is skipping it entirely.
-      # The reason I think it's working is because line 50 *is* passing, which wouldn't make any sense if line 47 wasn't working.  Something to think on...
       !within 'nav' do
         click_on "Register"
       end
@@ -57,16 +64,6 @@ RSpec.describe 'Cart show' do
 
       expect(current_path).to eq("/login")
     end
-
-    #Was this one of ours, or one of the old ones?  Either way it isn't working right now.  If it's not in the user stories (I can't seem to find it), I say we table it.
-
-    # describe 'When I havent added items to my cart' do
-    #   it 'There is not a link to checkout' do
-    #     visit "/cart"
-    #
-    #     expect(page).to_not have_link("Checkout")
-    #   end
-    # end
 
     describe 'when logged in as a regular user' do
       before do
@@ -108,8 +105,16 @@ RSpec.describe 'Cart show' do
 
         click_button "Create Order"
 
+        new_order = Order.last
+
+        #
+
         # SOMETHING.HERE- An order is created in the system, which has a status of "pending": Something we should update about the order_spec ?
+
         # SOMETHING.HERE- That order is associated with my user: Something we should update about the order_spec?
+
+        # WHERE WE ENDED:
+        We likely need to add a joins table for Orders and Users.
 
         expect(current_path).to eq("/profile/orders") #this contradicts line 48 of the order/creation_spec.rb.
 
@@ -124,9 +129,6 @@ RSpec.describe 'Cart show' do
         end
 
         expect(page).to have_content("Cart: 0")
-
-
-
       end
     end
   end
