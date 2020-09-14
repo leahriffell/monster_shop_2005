@@ -26,5 +26,11 @@ RSpec.describe "user profile page", type: :feature do
       click_link "Edit Profile"
       expect(current_path).to eq("/profile/edit")
     end
+
+    it "can link to form for changing password" do 
+      click_link "Change Password"
+      expect(current_path).to eq("/profile/edit")
+      expect(page).to have_content("Change Password")
+    end
   end
 end

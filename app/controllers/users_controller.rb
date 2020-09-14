@@ -10,11 +10,11 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome, #{@user.name}"
       redirect_to '/profile'
     elsif User.email_exists?(@user.email)
-      flash[:failure] = @user.errors.full_messages.to_sentence
+      flash[:error] = @user.errors.full_messages.to_sentence
       @user.email = nil
       render :new
     else
-      flash[:failure] = @user.errors.full_messages.to_sentence
+      flash[:error] = @user.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -26,17 +26,31 @@ class UsersController < ApplicationController
   end
 
   def edit
+    if params[:password]
+      render :change_password
+    else 
+      render :edit
+    end
   end
 
   def update
     current_user.update(user_params)
-    flash[:success] = "Your profile info has been updated."
-    redirect_to profile_path
+    if user_params[:password]
+      if current_user.save
+        flash[:success] = "Your password has been updated."
+        redirect_to profile_path
+      else 
+        flash[:error] = "The passwords entered do not match."
+        render :change_password
+      end
+    else 
+      flash[:success] = "Your profile info has been updated."
+      redirect_to profile_path
+    end
   end
 
   private
   def user_params
     params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
   end
-
 end
