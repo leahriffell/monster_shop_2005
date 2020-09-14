@@ -3,64 +3,58 @@
   <p align="center"><%= link_to "Add New Item", "/merchants/#{@merchant.id}/items/new" %></p>
 <% else %>
 <h1>Items</h1>
-  <section class="grid-container">
-    <section class='most-popular'>
-      <h3>Most popular</h3>
-      <% @popular_items.each do |item| %>
-        <section class = "grid-item" id= 'popitem-<%=item.id%>'>
-          <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
-          <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
-          <a href="/items/<%=item.id%>">
-            <img alt="item-image" src=<%= item.image %>/>
-          </a>
-          <p> <%= item.description unless @merchant%> </p>
-          <p>Price: <%=number_to_currency(item.price) %> </p>
-          <p>Inventory: <%= item.inventory %> </p>
-        </section>
-      <% end %>
-    </section>
+  <h2>Most popular</h2>
+  <section class="grid-container most-popular">
+    <% @popular_items.each do |item| %>
+      <section class = "grid-item" id= 'popitem-<%=item.id%>'>
+        <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
+        <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
+        <a href="/items/<%=item.id%>">
+          <img alt="item-image" src=<%= item.image %>/>
+        </a>
+        <p> <%= item.description unless @merchant%> </p>
+        <p>Price: <%=number_to_currency(item.price) %> </p>
+        <p>Inventory: <%= item.inventory %> </p>
+      </section>
+    <% end %>
   </section>
 
+  <h2>All Items</h2>
   <section class="grid-container">
-    <section class= "all-items">
-      <h3>All Items</h3>
-      <% @items.each do |item| %>
-        <section class = "grid-item" id= 'item-<%=item.id%>'>
-          <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
-          <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
-          <a href="/items/<%=item.id%>">
-            <img alt="item-image" src=<%= item.image %>/>
-          </a>
-          <p> <%= item.description unless @merchant%> </p>
-          <p>Price: <%=number_to_currency(item.price) %> </p>
-          <p>Inventory: <%= item.inventory %> </p>
-          <% if !@merchant %>
-          <% end %>
-          <% if item.active? %>
-            <p>Active</p>
-          <% else %>
-            <p>Inactive</p>
-          <% end %>
-        </section>
-      <% end %>
-    </section>
+    <% @items.each do |item| %>
+      <section class = "grid-item" id= 'item-<%=item.id%>'>
+        <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
+        <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
+        <a href="/items/<%=item.id%>">
+          <img alt="item-image" src=<%= item.image %>/>
+        </a>
+        <p> <%= item.description unless @merchant%> </p>
+        <p>Price: <%=number_to_currency(item.price) %> </p>
+        <p>Inventory: <%= item.inventory %> </p>
+        <% if !@merchant %>
+        <% end %>
+        <% if item.active? %>
+          <p>Active</p>
+        <% else %>
+          <p>Inactive</p>
+        <% end %>
+      </section>
+    <% end %>
   </section>
 
-  <section class="grid-container">
-    <section class='least-popular'>
-      <h3>Least popular</h3>
-      <% @least_popular_items.each do |item| %>
-        <section class = "grid-item" id= 'unpopitem-<%=item.id%>'>
-          <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
-          <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
-          <a href="/items/<%=item.id%>">
-            <img alt="item-image" src=<%= item.image %>/>
-          </a>
-          <p> <%= item.description unless @merchant%> </p>
-          <p>Price: <%=number_to_currency(item.price) %> </p>
-          <p>Inventory: <%= item.inventory %> </p>
-        </section>
-      <% end %>
-    </section>
+  <h2>Least popular</h2>
+  <section class="grid-container least-popular">
+    <% @least_popular_items.each do |item| %>
+      <section class = "grid-item" id= 'unpopitem-<%=item.id%>'>
+        <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
+        <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
+        <a href="/items/<%=item.id%>">
+          <img alt="item-image" src=<%= item.image %>/>
+        </a>
+        <p> <%= item.description unless @merchant%> </p>
+        <p>Price: <%=number_to_currency(item.price) %> </p>
+        <p>Inventory: <%= item.inventory %> </p>
+      </section>
+    <% end %>
   </section>
 <% end %>
