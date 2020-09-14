@@ -14,6 +14,8 @@ RSpec.describe 'Cart show' do
         click_on "Add To Cart"
         visit "/items/#{@tire.id}"
         click_on "Add To Cart"
+        visit "/items/#{@tire.id}"
+        click_on "Add To Cart"
         visit "/items/#{@pencil.id}"
         click_on "Add To Cart"
         @items_in_cart = [@paper,@tire,@pencil]
@@ -41,6 +43,34 @@ RSpec.describe 'Cart show' do
         expect(page).to have_css("#cart-item-#{@pencil.id}")
         expect(page).to have_css("#cart-item-#{@paper.id}")
       end
+
+      it "can update quantities from the /cart page" do
+        within '.topnav' do
+          expect(page).to have_content("Cart: 4")
+          click_link "Cart: 4"
+        end
+
+
+        within "#cart-item-#{@tire.id}" do
+          expect(page).to have_button("minus")
+          click_button "minus"
+        end
+        expect(page).to have_content("You have updated a quantity in your cart")
+
+        within '.topnav' do
+          expect(page).to have_content("Cart: 3")
+        end
+
+        within "#cart-item-#{@tire.id}" do
+          click_button "minus"
+        end
+        expect(page).to have_content("You have removed this item from your cart: #{@tire.name}")
+
+        within '.topnav' do
+          expect(page).to have_content("Cart: 2")
+        end
+      end
+
     end
   end
 end
