@@ -1,20 +1,23 @@
 <%= form_tag path, method: method do %>
 <%= label_tag :name %><br>
-<%= text_field_tag :name, @user.name, placeholder: "Name" %><br>
+<%= text_field_tag :name, current_user.name, placeholder: "Name" %><br>
 <%= label_tag :address %><br>
-<%= text_field_tag :address, @user.address, placeholder: "Address" %><br>
+<%= text_field_tag :address, current_user.address, placeholder: "Address" %><br>
 <%= label_tag :city %><br>
-<%= text_field_tag :city, @user.city, placeholder: "City" %><br>
+<%= text_field_tag :city, current_user.city, placeholder: "City" %><br>
 <%= label_tag :state %><br>
-<%= text_field_tag :state, @user.state, placeholder: "State" %><br>
+<%= text_field_tag :state, current_user.state, placeholder: "State" %><br>
 <%= label_tag :zip %><br>
-<%= text_field_tag :zip, @user.zip, placeholder: "Zip" %><br>
+<%= text_field_tag :zip, current_user.zip, placeholder: "Zip" %><br>
 <%= label_tag :email %><br>
-<%= text_field_tag :email, @user.email, placeholder: "Email" %><br>
-<%= label_tag :password %><br>
-<%= text_field_tag :password, nil, placeholder: "Password" %><br>
-<%= label_tag :password_confirmation %><br>
-<%= text_field_tag :password_confirmation, nil, placeholder: "Password Confirmation" %><br>
+<%= text_field_tag :email, current_user.email, placeholder: "Email" %><br>
+
+<% if current_visitor? %>
+  <%= label_tag :password %><br>
+  <%= text_field_tag :password, nil, placeholder: "Password" %><br>
+  <%= label_tag :password_confirmation %><br>
+  <%= text_field_tag :password_confirmation, nil, placeholder: "Password Confirmation" %><br>
+<% end %>
 
 <%= submit_tag button_text, class: :button %>
 <% end %>
