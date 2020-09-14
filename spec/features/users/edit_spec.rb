@@ -77,7 +77,7 @@ RSpec.describe "edit user profile data", type: :feature do
       click_button "Change Password"
 
       expect(current_path).to eq("/profile/edit")
-      expect(page).to have_content("The passwords entered do not match.")
+      expect(page).to have_content("Password confirmation doesn't match Password")
     end
   end
 end
