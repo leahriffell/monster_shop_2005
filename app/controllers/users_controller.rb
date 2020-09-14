@@ -44,8 +44,16 @@ class UsersController < ApplicationController
         render :change_password
       end
     else 
-      flash[:success] = "Your profile info has been updated."
-      redirect_to profile_path
+      if current_user.save
+        flash[:success] = "Your profile info has been updated."
+        redirect_to profile_path
+      elsif User.email_exists?(current_user.email)
+        flash[:error] = current_user.errors.full_messages.to_sentence
+        render :edit
+      else
+        flash[:error] = current_user.errors.full_messages.to_sentence
+        render :edit
+        end
     end
   end
 

@@ -3,22 +3,23 @@ require 'rails_helper'
 RSpec.describe "edit user profile data", type: :feature do
   describe "As a logged-in user" do
     before :each do
-      @user = User.create(name:"Luke Hunter James-Erickson", address:"123 Lane", city:"Denver", state:"CO", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
+      @user_1 = User.create(name:"Luke Hunter James-Erickson", address:"123 Lane", city:"Denver", state:"CO", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
+      @user_2 = User.create(name:"Patrick Schwayze", address:"444 Street", city:"Denver", state:"CO", zip:"40404", email: "dirtydancing@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
  
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
     end
     
     it "can see form pre-populated with current info except for password" do 
       visit profile_edit_path
 
-      expect(find_field(:name).value).to eq(@user.name)
-      expect(find_field(:address).value).to eq(@user.address)
-      expect(find_field(:city).value).to eq(@user.city)
-      expect(find_field(:state).value).to eq(@user.state)
-      expect(find_field(:zip).value).to eq(@user.zip)
-      expect(find_field(:email).value).to eq(@user.email)
+      expect(find_field(:name).value).to eq(@user_1.name)
+      expect(find_field(:address).value).to eq(@user_1.address)
+      expect(find_field(:city).value).to eq(@user_1.city)
+      expect(find_field(:state).value).to eq(@user_1.state)
+      expect(find_field(:zip).value).to eq(@user_1.zip)
+      expect(find_field(:email).value).to eq(@user_1.email)
       expect(page).to_not have_content("Password")
-      expect(page).to_not have_content(@user.password)
+      expect(page).to_not have_content(@user_1.password)
     end
 
     it "can change information" do 
@@ -40,6 +41,16 @@ RSpec.describe "edit user profile data", type: :feature do
       expect(page).to have_content("NY")
       expect(page).to have_content("12345")
       expect(page).to have_content("zealot@gmail.com")
+    end
+
+    it "can require a unique email address" do 
+      visit profile_edit_path
+
+      fill_in(:email, with: @user_2.email)
+      click_button "Update"
+
+      expect(current_path).to eq(profile_edit_path)
+      expect(page).to have_content("Email has already been taken")
     end
 
     it "can change password" do 
