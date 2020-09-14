@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   post "/cart/:item_id", to: "cart#add_item"
   get "/cart", to: "cart#show"
+  patch "/cart/:item_id", to: "cart#update_quantity"
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
 
