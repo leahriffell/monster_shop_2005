@@ -14,6 +14,8 @@ RSpec.describe 'Cart show' do
         click_on "Add To Cart"
         visit "/items/#{@tire.id}"
         click_on "Add To Cart"
+        visit "/items/#{@tire.id}"
+        click_on "Add To Cart"
         visit "/items/#{@pencil.id}"
         click_on "Add To Cart"
         @items_in_cart = [@paper,@tire,@pencil]
@@ -43,34 +45,31 @@ RSpec.describe 'Cart show' do
       end
 
       it "can update quantities from the /cart page" do
-        # As a visitor
-        # When I have items in my cart
-        # And I visit my cart
-        # Next to each item in my cart
-        # I see a button or link to decrement the count of items I want to purchase
-        # If I decrement the count to 0 the item is immediately removed from my cart
+        within '.topnav' do
+          expect(page).to have_content("Cart: 4")
+          click_link "Cart: 4"
+        end
 
 
-      #   visit "/items/#{@quantity_test_object_visitor.id}"
-      #   click_on "Add To Cart"
-      #
-      #   within '.topnav' do
-      #     expect(page).to have_content("Cart: 1")
-      #     click_link "Cart: 1"
-      #   end
-      #
-      #   @cart_visitor.each do |item|
-      #     within "#cart-item-#{item.id}" do
-      #       expect(page).to have_button("plus")
-      #       click_button "plus"
-      #     end
-      #   end
-      #
-      #   expect(page).to have_content("You have updated a quantity in your cart")
-      #
-      #   click_button("plus")
-      #   expect(page).to have_content("There are limited supplies in inventory - this item has reached it's max! Please try again later.")
-      # end
+        within "#cart-item-#{@tire.id}" do
+          expect(page).to have_button("minus")
+          click_button "minus"
+        end
+        expect(page).to have_content("You have updated a quantity in your cart")
+
+        within '.topnav' do
+          expect(page).to have_content("Cart: 3")
+        end
+
+        within "#cart-item-#{@tire.id}" do
+          click_button "minus"
+        end
+        expect(page).to have_content("You have removed this item from your cart: #{@tire.name}")
+
+        within '.topnav' do
+          expect(page).to have_content("Cart: 2")
+        end
+      end
 
     end
   end
