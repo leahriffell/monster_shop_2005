@@ -13,7 +13,7 @@ class CartController < Cart::BaseController
     end
   end
 
-  def update_quantity
+  def increase_quantity
     item = Item.find(params[:item_id])
     temp_inventory = cart.contents[item.id.to_s]
     cart.update_item(item.id.to_s)
@@ -38,7 +38,20 @@ class CartController < Cart::BaseController
 
   def remove_item
     session[:cart].delete(params[:item_id])
+    item = Item.find(params[:item_id])
+    flash[:success] = "You have removed this item from your cart: #{item.name}"
     redirect_to '/cart'
+  end
+
+  def decrease_quantity
+    decrease_item_id = (params[:item_id])
+    if session[:cart][decrease_item_id] == 1
+      remove_item
+    else
+      session[:cart][decrease_item_id] -= 1
+      flash[:success] = "You have updated a quantity in your cart"
+      redirect_to request.referrer
+    end
   end
 
 
