@@ -29,6 +29,8 @@ RSpec.describe Cart do
         @giant.id.to_s => 2,
         @hippo.id.to_s => 1
         })
+
+      # WRITE IN ADDITIONAL TESTS FOR CHECKING INVENTORY FIRST
     end
 
     it '.total_items' do
