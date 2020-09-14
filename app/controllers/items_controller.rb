@@ -6,6 +6,8 @@ class ItemsController<ApplicationController
       @items = @merchant.items
     else
       @items = Item.active_items
+      @popular_items = Item.most_popular_items
+      @least_popular_items = Item.least_popular_items
     end
   end
 
