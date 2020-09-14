@@ -19,11 +19,19 @@ class OrdersController <ApplicationController
           })
       end
       session.delete(:cart)
-      redirect_to "/orders/#{order.id}"
+      if current_user.role == "regular"
+        redirect_to "/profile/orders"
+      else
+        redirect_to "/orders/#{order.id}"
+      end
     else
       flash[:notice] = "Please complete address form to create an order."
       render :new
     end
+  end
+
+  def profile
+    require "pry"; binding.pry
   end
 
 
