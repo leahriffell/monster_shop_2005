@@ -18,6 +18,7 @@
         <p> <%= item.description unless @merchant%> </p>
         <p>Price: <%=number_to_currency(item.price) %> </p>
         <p>Inventory: <%= item.inventory %> </p>
+        <p>Amount Purchased: <%= item.sum_qty %> </p>
       </section>
     <% end %>
   </section>
@@ -59,6 +60,7 @@
         <p> <%= item.description unless @merchant%> </p>
         <p>Price: <%=number_to_currency(item.price) %> </p>
         <p>Inventory: <%= item.inventory %> </p>
+        <p>Amount Purchased: <%= item.sum_qty %> </p>
       </section>
     <% end %>
   </section>

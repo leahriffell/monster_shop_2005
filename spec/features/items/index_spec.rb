@@ -91,20 +91,31 @@ RSpec.describe "Items Index Page" do
     it "can see an area with most popular items and their qty purchased" do
       within ".most-popular" do
         expect(page).to have_link(@item_1.name)
+        expect(page).to have_content("Amount Purchased: 510")
         expect(page).to have_link(@item_10.name)
+        expect(page).to have_content("Amount Purchased: 100")
         expect(page).to have_link(@item_9.name)
+        expect(page).to have_content("Amount Purchased: 90")
         expect(page).to have_link(@item_8.name)
+        expect(page).to have_content("Amount Purchased: 80")
         expect(page).to have_link(@item_7.name)
+        expect(page).to have_content("Amount Purchased: 70")
+
       end
     end
       
     it "can see a section with least popular items and their qty purchased" do 
       within ".least-popular" do
         expect(page).to have_link(@item_2.name)
+        expect(page).to have_content("Amount Purchased: 20")
         expect(page).to have_link(@item_3.name)
+        expect(page).to have_content("Amount Purchased: 30")
         expect(page).to have_link(@item_4.name)
+        expect(page).to have_content("Amount Purchased: 40")
         expect(page).to have_link(@item_5.name)
+        expect(page).to have_content("Amount Purchased: 50")
         expect(page).to have_link(@item_6.name)
+        expect(page).to have_content("Amount Purchased: 60")
       end
     end
 
