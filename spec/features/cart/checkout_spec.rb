@@ -29,19 +29,10 @@ RSpec.describe 'Cart show' do
       @items_in_cart = [@paper,@tire,@pencil]
     end
 
-    it 'Theres a link to checkout' do
+    it "requires a visitor to login or register before checking out" do
       visit "/cart"
 
-      expect(page).to have_link("Checkout")
-
-      click_on "Checkout"
-
-      expect(current_path).to eq("/orders/new")
-    end
-
-    it "requires a visitor to login before checking out" do
-      visit "/cart"
-
+      expect(page).to_not have_link("Checkout")
       expect(page).to have_content("You must Register or Log In to finish checking out.")
       expect(page).to have_link("Register")
       expect(page).to have_link("Log In")
@@ -50,7 +41,7 @@ RSpec.describe 'Cart show' do
     it "has a Register link which links to registration page" do
       visit "/cart"
 
-      !within 'nav' do
+      within '#checkout-authorization' do
         click_on "Register"
       end
 
@@ -60,7 +51,9 @@ RSpec.describe 'Cart show' do
     it "has a Log In link which links to registration page" do
       visit "/cart"
 
-      click_on "Log In"
+      within '#checkout-authorization' do
+        click_on "Log In"
+      end
 
       expect(current_path).to eq("/login")
     end
@@ -88,6 +81,12 @@ RSpec.describe 'Cart show' do
         expect(page).to_not have_link("Log In")
       end
 
+      it 'can show a logged in user a link to checkout' do
+        expect(page).to have_link("Checkout")
+        click_on "Checkout"
+        expect(current_path).to eq("/orders/new")
+      end
+
       it "can see a flash message reporting the order was created" do
         click_on "Checkout"
 
@@ -105,16 +104,13 @@ RSpec.describe 'Cart show' do
 
         click_button "Create Order"
 
-        new_order = Order.last
-
-        #
+        new_order = @user.orders.last
+        # WHERE WE ENDED:
+        # We likely need to add a joins table for Orders and Users.
 
         # SOMETHING.HERE- An order is created in the system, which has a status of "pending": Something we should update about the order_spec ?
 
         # SOMETHING.HERE- That order is associated with my user: Something we should update about the order_spec?
-
-        # WHERE WE ENDED:
-        We likely need to add a joins table for Orders and Users.
 
         expect(current_path).to eq("/profile/orders") #this contradicts line 48 of the order/creation_spec.rb.
 
@@ -128,8 +124,11 @@ RSpec.describe 'Cart show' do
           expect(page).to have_content("$40")
         end
 
+        expect(page).to have_link(@tire.name)
+        expect(page).to have_link(@pencil.name)
         expect(page).to have_content("Cart: 0")
       end
     end
+
   end
 end
