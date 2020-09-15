@@ -27,12 +27,18 @@ class MerchantsController < ApplicationController
 
   def update
     @merchant = Merchant.find(params[:id])
-    @merchant.update(merchant_params)
-    if @merchant.save
-      redirect_to "/merchants/#{@merchant.id}"
-    else
-      flash[:error] = @merchant.errors.full_messages.to_sentence
-      render :edit
+    if params[:toggle_status]
+      @merchant.toggle(:active?).save
+      flash[:success] = "#{@merchant.name} is now disabled"
+      redirect_to admin_merchants_path
+    else 
+      @merchant.update(merchant_params)
+      if @merchant.save
+        redirect_to "/merchants/#{@merchant.id}"
+      else
+        flash[:error] = @merchant.errors.full_messages.to_sentence
+        render :edit
+      end
     end
   end
 
