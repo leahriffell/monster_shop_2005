@@ -16,6 +16,10 @@ class Item <ApplicationRecord
     Item.where(active?:true)
   end
 
+  def self.by_popularity(*order)
+    active_items.select("items.*,sum(quantity) as sum_qty").joins(:item_orders).group(:id).order(order).limit(5)
+  end
+
   def average_review
     reviews.average(:rating)
   end
