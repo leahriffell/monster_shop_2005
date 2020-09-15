@@ -57,7 +57,8 @@ describe Merchant, type: :model do
     end
 
     it 'can disabled all items' do 
-
+      @meg.disable_items
+      @meg.items.all?{ |item| expect(item.active?).to eq(false) }
     end
   end
 end
