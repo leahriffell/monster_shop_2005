@@ -66,12 +66,12 @@ describe Merchant, type: :model do
     end
 
     it 'can disable all items' do 
-      @meg.toggle_item_status(false)
+      @meg.disable_items
       @meg.items.all?{ |item| expect(item.active?).to eq(false) }
     end
 
     it 'can enable all items' do 
-      @meg.toggle_item_status(true)
+      @meg.enable_items
       @meg.items.all?{ |item| expect(item.active?).to eq(true) }
     end
   end

@@ -6,13 +6,13 @@
       <h2><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>
 
       <% if current_admin? %>
-        <% if merchant.active? %>
-          <p>Status: Active</p>
-          <%= link_to "Disable", merchant_update_path(merchant, toggle_status: true), method: :patch %>
-        <% else %>
-          <p>Status: Inactive</p>
-          <%= link_to "Enable", merchant_update_path(merchant, toggle_status: true), method: :patch %>
-        <% end %>
+      <% if merchant.active? %>
+      <p>Status: Active</p>
+      <%= link_to "Disable", merchant_update_path(merchant, toggle_status: true), method: :patch %>
+      <% else %>
+        <p>Status: Inactive</p>
+        <%= link_to "Enable", merchant_update_path(merchant, toggle_status: true), method: :patch %>
+      <% end %>
       <% end %>
     </section>
   <% end %>

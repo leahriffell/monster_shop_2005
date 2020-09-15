@@ -54,7 +54,7 @@ RSpec.describe 'merchant index page', type: :feature do
       expect(page).to have_content("#{@bike_shop.name} is now disabled")
 
       within("#merchant-#{@bike_shop.id}") do 
-        expect(page).to have_content("Status: Disabled")
+        expect(page).to have_content("Status: Inactive")
         expect(page).to_not have_button("Disable")
       end
     end
@@ -81,7 +81,7 @@ RSpec.describe 'merchant index page', type: :feature do
       within("#merchant-#{@dog_shop.id}") do 
         expect(page).to have_content("Status: Active")
         expect(page).to_not have_button("Enable")
-        expect(page).to have_button("Disable")
+        expect(page).to have_link("Disable")
       end
     end
   end

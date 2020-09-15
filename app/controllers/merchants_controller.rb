@@ -30,11 +30,12 @@ class MerchantsController < ApplicationController
     if params[:toggle_status]
       @merchant.toggle_status
       if @merchant.active?
-        # @merchant.enable_items
+        @merchant.enable_items
         flash[:success] = "#{@merchant.name} is now enabled"
-      end
-      # @merchant.disable_items
+      else
+        @merchant.disable_items
         flash[:success] = "#{@merchant.name} is now disabled"
+      end
       redirect_to admin_merchants_path
     else 
       @merchant.update(merchant_params)
