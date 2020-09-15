@@ -30,6 +30,7 @@ class MerchantsController < ApplicationController
     if params[:toggle_status]
       @merchant.toggle(:active?).save
       flash[:success] = "#{@merchant.name} is now disabled"
+      @merchant.disable_items
       redirect_to admin_merchants_path
     else 
       @merchant.update(merchant_params)
