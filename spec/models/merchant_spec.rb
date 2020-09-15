@@ -16,6 +16,7 @@ describe Merchant, type: :model do
   describe 'instance methods' do
     before(:each) do
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @pawn_shop = Merchant.create!(name: "EZPAWN", address: '1025 Broadway', city: 'Denver', state: 'CO', zip: 80203, active?: false)
 
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
       @watch = @meg.items.create!(name: "GPS", description: "Track your splits", price: 150, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 5)
@@ -59,6 +60,14 @@ describe Merchant, type: :model do
     it 'can disabled all items' do 
       @meg.disable_items
       @meg.items.all?{ |item| expect(item.active?).to eq(false) }
+    end
+
+    it 'can toggle active status' do 
+      @meg.toggle_status
+      expect(@meg.active?).to eq(false)
+
+      @pawn_shop.toggle_status
+      expect(@pawn_shop.active?).to eq(true)
     end
   end
 end
