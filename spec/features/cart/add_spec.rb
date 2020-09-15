@@ -69,15 +69,7 @@ RSpec.describe 'Cart creation' do
       before :each do
         @user = User.create!(name:"Jackie Chan", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "ithinkyourock@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
 
-        visit "/"
-
-        within 'nav' do
-          click_link "Login"
-        end
-
-        fill_in :email, with: @user.email
-        fill_in  :password, with: @user.password
-        click_button "Login"
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       end
 
       it "can update order quantities in regular user's cart" do
@@ -154,15 +146,7 @@ RSpec.describe 'Cart creation' do
       before :each do
         @admin = User.create!(name:"Priya", address:"13 Elm Street", city:"Denver", state:"CO", zip:"66666", email: "priyaisdelicious@gmail.com", password:"yuuuuuup", password_confirmation:"yuuuuuup", role: 2)
 
-        visit "/"
-
-        within 'nav' do
-          click_link "Login"
-        end
-
-        fill_in :email, with: @admin.email
-        fill_in  :password, with: @admin.password
-        click_button "Login"
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
       end
 
       it "can NOT see the cart as an admin" do
