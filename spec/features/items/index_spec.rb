@@ -6,7 +6,6 @@ RSpec.describe "Items Index Page" do
       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @pet_shop = Merchant.create(name: "Ruffhouse", address: '11 Paw Print Lane', city: 'Denver', state: 'CO', zip: 80202)
 
-      
       @item_1 = @bike_shop.items.create!(name: "Bike pump", description: "XYZ", price: 20, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 30)
       @item_2 = @bike_shop.items.create!(name: "Tready tire", description: "XYZ", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 20)
       @item_3 = @bike_shop.items.create!(name: "Shoe clips", description: "XYZ", price: 50, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 10)
@@ -100,7 +99,6 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_content("Amount Purchased: 80")
         expect(page).to have_link(@item_7.name)
         expect(page).to have_content("Amount Purchased: 70")
-
       end
     end
       
@@ -118,7 +116,5 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_content("Amount Purchased: 60")
       end
     end
-
-    # add test that "other section" only includes items not in most or least popular section *IF* we want to interpret the US as this
   end
 end
