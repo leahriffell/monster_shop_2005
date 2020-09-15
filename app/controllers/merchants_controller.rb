@@ -28,8 +28,14 @@ class MerchantsController < ApplicationController
   def update
     @merchant = Merchant.find(params[:id])
     if params[:toggle_status]
-      @merchant.toggle(:active?).save
-      flash[:success] = "#{@merchant.name} is now disabled"
+      @merchant.toggle_status
+      if @merchant.active?
+        @merchant.enable_items
+        flash[:success] = "#{@merchant.name} is now enabled"
+      else
+        @merchant.disable_items
+        flash[:success] = "#{@merchant.name} is now disabled"
+      end
       redirect_to admin_merchants_path
     else 
       @merchant.update(merchant_params)
@@ -52,5 +58,4 @@ class MerchantsController < ApplicationController
   def merchant_params
     params.permit(:name,:address,:city,:state,:zip)
   end
-
 end
