@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   def edit
     if params[:password]
       render :change_password
-    else 
+    else
       render :edit
     end
   end
@@ -37,11 +37,11 @@ class UsersController < ApplicationController
       if current_user.save
         flash[:success] = "Your password has been updated."
         redirect_to profile_path
-      else 
+      else
         flash[:error] = current_user.errors.full_messages.to_sentence
         render :change_password
       end
-    else 
+    else
       if current_user.save
         flash[:success] = "Your profile info has been updated."
         redirect_to profile_path
@@ -50,6 +50,10 @@ class UsersController < ApplicationController
         render :edit
       end
     end
+  end
+
+  def order
+    @orders = current_user.orders
   end
 
   private
