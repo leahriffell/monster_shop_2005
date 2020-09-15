@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get "/", to: "welcome#index", as: :root
 
-  namespace :merchants do
-    get "/merchant", to: "dashboard#index", as: :dashboard
+  namespace :merchant do
+    get "/", to: "dashboard#index", as: :dashboard
   end
 
   get "/merchants", to: "merchants#index"
@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   get "/logout", to: "sessions#destroy"
 
   namespace :admin do
-    get "/admin", to: "dashboard#index", as: :dashboard
+    get "/", to: "dashboard#index", as: :dashboard
   end
 
   resources :admin, only: [:index]
