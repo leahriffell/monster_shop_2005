@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe "edit user profile data", type: :feature do
   describe "As a logged-in user" do
     before :each do
-      @user_1 = User.create(name:"Luke Hunter James-Erickson", address:"123 Lane", city:"Denver", state:"CO", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
-      @user_2 = User.create(name:"Patrick Schwayze", address:"444 Street", city:"Denver", state:"CO", zip:"40404", email: "dirtydancing@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
- 
+      @user_1 = User.create!(name:"Luke Hunter James-Erickson", address:"123 Lane", city:"Denver", state:"CO", zip:"88888", email: "newnew@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
+      @user_2 = User.create!(name:"Patrick Schwayze", address:"444 Street", city:"Denver", state:"CO", zip:"40404", email: "blargpoop@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
     end
-    
-    it "can see form pre-populated with current info except for password" do 
+
+    it "can see form pre-populated with current info except for password" do
       visit profile_edit_path
 
       expect(find_field(:name).value).to eq(@user_1.name)
@@ -22,7 +22,7 @@ RSpec.describe "edit user profile data", type: :feature do
       expect(page).to_not have_content(@user_1.password)
     end
 
-    it "can change information" do 
+    it "can change information" do
       visit profile_edit_path
 
       fill_in(:name, with: "LHJE")
@@ -43,7 +43,7 @@ RSpec.describe "edit user profile data", type: :feature do
       expect(page).to have_content("zealot@gmail.com")
     end
 
-    it "can require a unique email address" do 
+    it "can require a unique email address" do
       visit profile_edit_path
 
       fill_in(:email, with: @user_2.email)
@@ -53,7 +53,7 @@ RSpec.describe "edit user profile data", type: :feature do
       expect(page).to have_content("Email has already been taken")
     end
 
-    it "can change password" do 
+    it "can change password" do
       visit profile_path
       click_link "Change Password"
 
@@ -68,7 +68,7 @@ RSpec.describe "edit user profile data", type: :feature do
       expect(page).to have_content("Your password has been updated.")
     end
 
-    it "cannot change password if passwords do not match" do 
+    it "cannot change password if passwords do not match" do
       visit profile_path
       click_link "Change Password"
 
