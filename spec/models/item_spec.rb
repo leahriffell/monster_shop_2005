@@ -94,15 +94,13 @@ describe Item, type: :model do
       end
     end
 
-    describe '.most_popular_items' do
+    describe '.by_popularity' do
       it 'can return the five most popular active items by quantity purchased' do 
-        expect(Item.most_popular_items).to eq([@item_1, @item_10, @item_9, @item_8, @item_7])
+        expect(Item.by_popularity(sum_qty: :desc)).to eq([@item_1, @item_10, @item_9, @item_8, @item_7])
       end
-    end
 
-    describe '.least_popular_items' do
       it 'can return the five least popular active items by quantity purchased' do 
-        expect(Item.least_popular_items).to eq([@item_2, @item_3, @item_4, @item_5, @item_6])
+        expect(Item.by_popularity(:sum_qty)).to eq([@item_2, @item_3, @item_4, @item_5, @item_6])
       end
     end 
   end
