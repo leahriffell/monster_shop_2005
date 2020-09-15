@@ -6,11 +6,10 @@ class ItemsController<ApplicationController
       @items = @merchant.items
       @popular_items = @merchant.items.by_popularity(sum_qty: :desc)
       @least_popular_items = @merchant.items.by_popularity(:sum_qty)
-    else
+    end
       @items = Item.active_items
       @popular_items = Item.by_popularity(sum_qty: :desc)
       @least_popular_items = Item.by_popularity(:sum_qty)
-    end
   end
 
   def show
