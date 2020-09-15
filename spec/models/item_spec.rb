@@ -105,10 +105,5 @@ describe Item, type: :model do
         expect(Item.least_popular_items).to eq([@item_2, @item_3, @item_4, @item_5, @item_6])
       end
     end 
-    
-    # describe '.other_items' do
-    #   it 'can return active items not in top or bottom 5' do 
-    #   end
-    # end
   end
 end

@@ -24,10 +24,6 @@ class Item <ApplicationRecord
     active_items.select("items.*,sum(quantity) as sum_qty").joins(:item_orders).group(:id).order(:sum_qty).limit(5)
   end
 
-  # def self.other_items
-    
-  # end
-
   def average_review
     reviews.average(:rating)
   end
