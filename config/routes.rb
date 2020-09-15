@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get "/merchants/:id", to: "merchants#show"
   post "/merchants", to: "merchants#create"
   get "/merchants/:id/edit", to: "merchants#edit"
-  patch "/merchants/:id", to: "merchants#update"
+  patch "/merchants/:id", to: "merchants#update", as: :merchant_update
   delete "/merchants/:id", to: "merchants#destroy"
 
   get "/items", to: "items#index"
@@ -56,7 +56,7 @@ Rails.application.routes.draw do
   end
   
   scope :admin do 
-    get "/merchants", to: "merchants#index"
+    get "/merchants", to: "merchants#index", as: :admin_merchants
   end
 
   resources :admin, only: [:index]
