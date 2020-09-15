@@ -4,9 +4,12 @@ class ItemsController<ApplicationController
     if params[:merchant_id]
       @merchant = Merchant.find(params[:merchant_id])
       @items = @merchant.items
-    else
-      @items = Item.all
+      @popular_items = @merchant.items.by_popularity(sum_qty: :desc)
+      @least_popular_items = @merchant.items.by_popularity(:sum_qty)
     end
+      @items = Item.active_items
+      @popular_items = Item.by_popularity(sum_qty: :desc)
+      @least_popular_items = Item.by_popularity(:sum_qty)
   end
 
   def show
