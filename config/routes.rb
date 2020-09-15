@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show"
 
-  get "/profile/orders", to: "orders#profile"
+  get "/profile/orders", to: "orders#profile" # This could also be users#profile_orders or something... I'm confused here
 
   resources :users, only: [:create]
   get "/register", to: "users#new"
