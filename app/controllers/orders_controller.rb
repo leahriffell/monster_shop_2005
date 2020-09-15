@@ -9,20 +9,20 @@ class OrdersController <ApplicationController
   end
 
   def create
-    order = Order.create(order_params)
+    order = current_user.orders.new(order_params)
     if order.save
       cart.items.each do |item,quantity|
-        order.item_orders.create({
+        order.item_orders.create!({
           item: item,
           quantity: quantity,
           price: item.price
           })
       end
       session.delete(:cart)
-      if current_user.role == "regular"
-        redirect_to "/profile/orders"
-      else
+      if current_user.role == "admin"
         redirect_to "/orders/#{order.id}"
+      elsif current_user.role == "regular" || current_user.role == "merchant"
+        redirect_to "/profile/orders"
       end
     else
       flash[:notice] = "Please complete address form to create an order."
@@ -30,9 +30,9 @@ class OrdersController <ApplicationController
     end
   end
 
-  def profile
-    require "pry"; binding.pry
-  end
+  # def profile
+  #   require "pry"; binding.pry
+  # end
 
 
   private
