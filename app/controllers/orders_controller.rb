@@ -22,6 +22,7 @@ class OrdersController <ApplicationController
       if current_user.role == "admin"
         redirect_to "/orders/#{order.id}"
       elsif current_user.role == "regular" || current_user.role == "merchant"
+        flash[:success] = "Your order was created!"
         redirect_to "/profile/orders"
       end
     else
