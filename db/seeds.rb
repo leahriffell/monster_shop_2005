@@ -22,4 +22,4 @@ pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!
 dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
 
 #users
-tom = User.create(name: "Tom", address: "121 Tomville St.", city: "Tomville", state: "CO", zip: "34565", email: "tombroke@gmail.com", password: "thisismypassword", password_confirmation: "thisismypassword" )
+tom = User.create(name: "Tom", address: "121 Tomville St.", city: "Tomville", state: "CO", zip: "34565", email: "blargpoopblarg@gmail.com", password: "thisismypassword", password_confirmation: "thisismypassword" )
