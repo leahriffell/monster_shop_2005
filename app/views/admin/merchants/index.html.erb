@@ -1,0 +1,15 @@
+<h1>Admin Merchant Index Page</h1>
+
+<section class = "grid-container">
+  <% @merchants.each do |merchant|%>
+    <section class = "grid-item" id="merchant-<%= merchant.id %>">
+      <h2><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>
+      <% if merchant.active? %>
+        <p>Status: Active</p>
+        <%= link_to "Disable", admin_merchant_update_path(merchant, toggle_status: true), method: :patch %>
+      <% else %>
+        <p>Status: Disabled</p>
+      <% end %>
+    </section>
+  <% end %>
+</section>
