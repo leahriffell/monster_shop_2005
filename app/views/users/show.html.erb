@@ -1,1 +1,12 @@
-<h1>Profile</h1>
+<h1><%= current_user.name %></h1>
+
+<ul>
+  <li>Address: <%= current_user.address %></li>
+  <li>City: <%= current_user.city %></li>
+  <li>State: <%= current_user.state %></li>
+  <li>Zip: <%= current_user.zip %></li>
+  <li>Email: <%= current_user.email %></li>
+</ul>
+
+<%= link_to "Edit Profile", profile_edit_path %><br>
+<%= link_to "Change Password", profile_edit_path(password: true) %>

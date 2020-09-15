@@ -39,7 +39,7 @@
         <center>
           <p><%= button_to "+", "/cart/#{item.id}", id:"plus", method: :patch %></p>
           <p><%=quantity%></p>
-          <p><%= button_to "+", "/cart/#{item.id}", id:"minus", method: :put %></p>
+          <p><%= button_to "-", "/cart/#{item.id}", id:"minus", method: :put %></p>
           <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
         </center>
         </td>
@@ -51,10 +51,13 @@
 </table>
   <p>Total: <%= number_to_currency(cart.total) %></p>
   <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
-  <% if !current_user %>
-    <p> <%= "You must" %> <%= link_to "Register", "/register"%> <%= "or" %> <%= link_to "Log In", "/login"%> <%= "to finish checking out." %></p>
-  <% end %>
-  <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
+  <section id="checkout-authorization">
+    <% if !current_user %>
+      <p> <%= "You must" %> <%= link_to "Register", "/register"%> <%= "or" %> <%= link_to "Log In", "/login"%> <%= "to finish checking out." %></p>
+    <% else %>
+      <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
+    <% end %>
+  </section>
 <% else %>
   <h3 align= "center">Cart is currently empty</h3>
 <% end %>

@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe 'Cart creation' do
   describe 'When I visit an items show page' do
     before(:each) do
-      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
-      @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
-      @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
-      @quantity_test_object_visitor = @mike.items.create(name: "item_visitor", description: "I am a description", price: 10, image: "https://previews.123rf.com/images/albertzig/albertzig1210/albertzig121001618/16005008-3d-cartoon-cute-monster.jpg", inventory: 2)
-      @quantity_test_object_regular = @mike.items.create(name: "item_regular", description: "I am a description", price: 10, image: "https://previews.123rf.com/images/albertzig/albertzig1210/albertzig121000361/15625219-3d-cartoon-cute-monster.jpg", inventory: 3)
-      @quantity_test_object_merchant = @mike.items.create(name: "item_merchant", description: "I am a description", price: 10, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSSEiGA-5ciHpGWaYBQ-lD25g0mbpYDnhi8xw&usqp=CAU", inventory: 4)
-      @quantity_test_object_admin = @mike.items.create(name: "item_admin", description: "I am a description", price: 10, image: "https://static.turbosquid.com/Preview/001299/713/NK/_D.jpg", inventory: 100)
+      @mike = Merchant.create!(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @paper = @mike.items.create!(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
+      @pencil = @mike.items.create!(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+      @quantity_test_object_visitor = @mike.items.create!(name: "item_visitor", description: "I am a description", price: 10, image: "https://previews.123rf.com/images/albertzig/albertzig1210/albertzig121001618/16005008-3d-cartoon-cute-monster.jpg", inventory: 2)
+      @quantity_test_object_regular = @mike.items.create!(name: "item_regular", description: "I am a description", price: 10, image: "https://previews.123rf.com/images/albertzig/albertzig1210/albertzig121000361/15625219-3d-cartoon-cute-monster.jpg", inventory: 3)
+      @quantity_test_object_merchant = @mike.items.create!(name: "item_merchant", description: "I am a description", price: 10, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSSEiGA-5ciHpGWaYBQ-lD25g0mbpYDnhi8xw&usqp=CAU", inventory: 4)
+      @quantity_test_object_admin = @mike.items.create!(name: "item_admin", description: "I am a description", price: 10, image: "https://static.turbosquid.com/Preview/001299/713/NK/_D.jpg", inventory: 100)
 
       @cart_visitor = [@quantity_test_object_visitor]
       @cart_regular = [@quantity_test_object_regular]
@@ -67,7 +67,7 @@ RSpec.describe 'Cart creation' do
 
     describe "As a Regular User" do
       before :each do
-        @user = User.create(name:"Jackie Chan", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
+        @user = User.create!(name:"Jackie Chan", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "ithinkyourock@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
 
         visit "/"
 
@@ -108,7 +108,7 @@ RSpec.describe 'Cart creation' do
 
     describe "As a Merchant User" do
       before :each do
-        @merchant = User.create(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "Leahsocool@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1)
+        @merchant = User.create!(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "leahisthebombdotcom@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1)
 
         visit "/"
 
@@ -152,7 +152,7 @@ RSpec.describe 'Cart creation' do
 
     describe "As an Admin User" do
       before :each do
-        @admin = User.create(name:"Priya", address:"13 Elm Street", city:"Denver", state:"CO", zip:"66666", email: "priyavcooltoo@gmail.com", password:"yuuuuuup", password_confirmation:"yuuuuuup", role: 2)
+        @admin = User.create!(name:"Priya", address:"13 Elm Street", city:"Denver", state:"CO", zip:"66666", email: "priyaisdelicious@gmail.com", password:"yuuuuuup", password_confirmation:"yuuuuuup", role: 2)
 
         visit "/"
 

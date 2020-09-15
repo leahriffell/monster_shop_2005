@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe 'Site Navigation' do
   describe 'As a Merchant' do
     before :each do
-      @merchant = User.create(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "Leahsocool@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1)
+      @merchant = User.create!(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "Leahsocool@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1)
 
       visit "/"
 
       within 'nav' do
         click_link "Login"
       end
-  
+
       fill_in :email, with: @merchant.email
       fill_in  :password, with: @merchant.password
       click_button "Login"
