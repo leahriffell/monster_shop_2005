@@ -1,14 +1,12 @@
 <section id="profile-orders">
   <% @orders.each do |order| %>
   <ul>
-    <%= link_to "Order: #{order.id}", "/orders/#{order.id}" %>
-  </ul>
-  <ul>
-    <% if order.status? %>
-      <p>Status: Shipped</p>
-    <% else %>
-      <p>Status: Pending</p>
-    <% end %>
+    <h3><%= link_to "Order: #{order.id}", "/orders/#{order.id}" %></h3>
+    <li>Order date: <%= order.created_at %></li>
+    <li>Last update: <%= order.updated_at %></li>
+    <li>Status: <%= order.status_string %>
+    <li>Quantity: <%= order.total_quantity %></li>
+    <li>Total price: <%= order.total_price %></li>
   </ul>
   <% end %>
 </section>
