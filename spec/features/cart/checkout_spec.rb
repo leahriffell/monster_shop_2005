@@ -31,8 +31,6 @@ RSpec.describe 'Cart show' do
         visit "/items/#{@pencil.id}"
         click_on "Add To Cart"
       end
-
-      @items_in_cart = [@paper,@tire,@pencil]
     end
 
     it "requires a visitor to login or register before checking out" do
@@ -40,8 +38,11 @@ RSpec.describe 'Cart show' do
 
       expect(page).to_not have_link("Checkout")
       expect(page).to have_content("You must Register or Log In to finish checking out.")
-      expect(page).to have_link("Register")
-      expect(page).to have_link("Log In")
+
+      within '#checkout-authorization' do
+        expect(page).to have_link("Register")
+        expect(page).to have_link("Log In")
+      end
     end
 
     it "has a Register link which links to registration page" do
@@ -68,15 +69,7 @@ RSpec.describe 'Cart show' do
       before do
         @user = User.create!(name:"Jackie Chan", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "12345@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
 
-        visit "/"
-
-        within 'nav' do
-          click_link "Login"
-        end
-
-        fill_in :email, with: @user.email
-        fill_in  :password, with: @user.password
-        click_button "Login"
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
         visit "/cart"
       end
