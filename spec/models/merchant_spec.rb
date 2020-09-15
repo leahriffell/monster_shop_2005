@@ -57,17 +57,22 @@ describe Merchant, type: :model do
       expect(@meg.distinct_cities).to include("Hershey")
     end
 
-    it 'can disabled all items' do 
-      @meg.disable_items
-      @meg.items.all?{ |item| expect(item.active?).to eq(false) }
-    end
-
     it 'can toggle active status' do 
       @meg.toggle_status
       expect(@meg.active?).to eq(false)
 
       @pawn_shop.toggle_status
       expect(@pawn_shop.active?).to eq(true)
+    end
+
+    it 'can disable all items' do 
+      @meg.disable_items
+      @meg.items.all?{ |item| expect(item.active?).to eq(false) }
+    end
+
+    it 'can enable all items' do 
+      @meg.enable_items
+      @meg.items.all?{ |item| expect(item.active?).to eq(true) }
     end
   end
 end

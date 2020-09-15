@@ -32,4 +32,8 @@ class Merchant <ApplicationRecord
   def disable_items 
     items.update_all(active?: false)
   end
+
+  def enable_items 
+    items.update_all(active?: true)
+  end
 end
