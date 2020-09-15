@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "User Registration Page", type: :feature do
   describe "As a visitor" do
     before :each do
-      @user = User.create(name:"Luke Hunter James-Erickson", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "tombroke@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword")
+      @user = User.create!(name:"Luke Hunter James-Erickson", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "chadrickisking@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword")
     end
 
     it "can register a user" do
@@ -66,7 +66,7 @@ RSpec.describe "User Registration Page", type: :feature do
       fill_in  :email, with: "mynameisleah@gmail.com"
       fill_in  :password, with: "hiohio38298"
       fill_in  :password_confirmation, with: "hiohio38298"
-      
+
       click_button "Sign-up"
 
       expect(find_field(:address).value).to eq("131 Hills Ave")
@@ -81,7 +81,7 @@ RSpec.describe "User Registration Page", type: :feature do
     it "can require a registration email be unique" do
       visit "/register"
       username = "Tom Brokaw"
-      test_email = "tombroke@gmail.com"
+      test_email = "chadrickisking@gmail.com"
       fill_in :name, with: username
       fill_in  :address, with: "131 Hills Ave"
       fill_in  :city, with: "Tomville"
@@ -101,6 +101,7 @@ RSpec.describe "User Registration Page", type: :feature do
       expect(find_field(:email).value).to have_no_content(test_email)
       expect(find_field(:password).value).to have_no_content("hiohio38298")
       expect(page).to have_content("Email has already been taken")
+      expect(current_path).to eq("/users") #We were experimenting with this path... test in rails server
     end
   end
 end

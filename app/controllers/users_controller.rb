@@ -6,12 +6,14 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
+    if User.email_exists?(@user.email)
+      @user.email = nil
+      # user_fails_create_validation # This is failing BECAUSE, @user.errors doesn't show ANY errors - we wonder if this is because we had to update a user to "save" without unique email to prompt errors; our current solution is to handroll this flash[:error] message :)
+      flash[:error] = "Email has already been taken"
+      render :new
+    elsif @user.save
       flash[:success] = "Welcome, #{@user.name}"
       redirect_to '/profile'
-    elsif User.email_exists?(@user.email)
-      @user.email = nil
-      user_fails_create_validation
     else
       user_fails_create_validation
     end
@@ -26,7 +28,7 @@ class UsersController < ApplicationController
   def edit
     if params[:password]
       render :change_password
-    else 
+    else
       render :edit
     end
   end
@@ -37,11 +39,11 @@ class UsersController < ApplicationController
       if current_user.save
         flash[:success] = "Your password has been updated."
         redirect_to profile_path
-      else 
+      else
         flash[:error] = current_user.errors.full_messages.to_sentence
         render :change_password
       end
-    else 
+    else
       if current_user.save
         flash[:success] = "Your profile info has been updated."
         redirect_to profile_path
@@ -50,6 +52,10 @@ class UsersController < ApplicationController
         render :edit
       end
     end
+  end
+
+  def order
+    @orders = current_user.orders
   end
 
   private

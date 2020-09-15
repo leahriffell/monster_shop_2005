@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe "Items Index Page" do
   describe "When I visit the items index page" do
     before(:each) do
+      @meg = Merchant.create!(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @brian = Merchant.create!(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+
       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @pet_shop = Merchant.create(name: "Ruffhouse", address: '11 Paw Print Lane', city: 'Denver', state: 'CO', zip: 80202)
 
@@ -115,6 +118,7 @@ RSpec.describe "Items Index Page" do
         expect(page).to have_link(@item_6.name)
         expect(page).to have_content("Amount Purchased: 60")
       end
+        expect(current_path).to eq("/items/#{@pull_toy.id}")
     end
   end
 end
