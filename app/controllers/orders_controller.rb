@@ -30,11 +30,6 @@ class OrdersController <ApplicationController
     end
   end
 
-  # def profile
-  #   require "pry"; binding.pry
-  # end
-
-
   private
 
   def order_params
