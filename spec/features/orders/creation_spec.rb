@@ -56,6 +56,7 @@ RSpec.describe("Order Creation") do
 
       # this line contradicts user story 26, so we have commented it out.
       # expect(current_path).to eq("/orders/#{new_order.id}")
+      visit "/orders/#{new_order.id}"
 
       within '.shipping-address' do
         expect(page).to have_content(name)
