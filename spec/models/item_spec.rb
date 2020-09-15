@@ -69,10 +69,11 @@ describe Item, type: :model do
       @item_11 = @bike_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
       #"other" item (not popular and not un-popular)
       @item_12 = @bike_shop.items.create(name: "Watch", description: "Track your times", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", inventory: 5)
-
-      @order_1 = Order.create!(name: "Tommy boy", address: "1234 Street", city: "Metropolis", state: "CO", zip: 12345)
-      @order_2 = Order.create!(name: "Susie", address: "12 Sunshine Road", city: "LA", state: "CA", zip: 55555)
-      @order_3 = Order.create!(name: "Larry David", address: "555 Palm Dr", city: "LA", state: "CA", zip: 55555)
+      @user = User.create!(name:"EdgeTestUS26", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "bloogblaag@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
+      
+      @order_1 = @user.orders.create!(name: "Tommy boy", address: "1234 Street", city: "Metropolis", state: "CO", zip: 12345)
+      @order_2 = @user.orders.create!(name: "Susie", address: "12 Sunshine Road", city: "LA", state: "CA", zip: 55555)
+      @order_3 = @user.orders.create!(name: "Larry David", address: "555 Palm Dr", city: "LA", state: "CA", zip: 55555)
 
       @item_order_1 = ItemOrder.create!(order: @order_1, item: @item_1, price: @item_1.price, quantity: 10)
       @item_order_1 = ItemOrder.create!(order: @order_2, item: @item_1, price: @item_1.price, quantity: 500)
@@ -97,13 +98,13 @@ describe Item, type: :model do
     end
 
     describe '.by_popularity' do
-      it 'can return the five most popular active items by quantity purchased' do 
+      it 'can return the five most popular active items by quantity purchased' do
         expect(Item.by_popularity(sum_qty: :desc)).to eq([@item_1, @item_10, @item_9, @item_8, @item_7])
       end
 
-      it 'can return the five least popular active items by quantity purchased' do 
+      it 'can return the five least popular active items by quantity purchased' do
         expect(Item.by_popularity(:sum_qty)).to eq([@item_2, @item_3, @item_4, @item_5, @item_6])
       end
-    end 
+    end
   end
 end
