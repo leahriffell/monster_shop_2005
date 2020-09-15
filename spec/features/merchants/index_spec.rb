@@ -66,5 +66,23 @@ RSpec.describe 'merchant index page', type: :feature do
 
       @bike_shop.items.all?{ |item| expect(item.active?).to eq(false) }
     end
+
+
+    it 'can enable an inactive merchant' do
+      within("#merchant-#{@dog_shop.id}") do 
+        expect(page).to have_content("Status: Inactive")
+        expect(page).to have_link("Enable")
+        click_link "Enable"
+      end
+
+      expect(current_path).to eq ('/admin/merchants')
+      expect(page).to have_content("#{@dog_shop.name} is now enabled")
+
+      within("#merchant-#{@dog_shop.id}") do 
+        expect(page).to have_content("Status: Active")
+        expect(page).to_not have_button("Enable")
+        expect(page).to have_button("Disable")
+      end
+    end
   end
 end
