@@ -52,7 +52,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "/admin", to: "dashboard#index", as: :dashboard
-    patch "/merchants/:id", to: "merchants#update", as: :merchant_update
   end
   
   scope :admin do 
