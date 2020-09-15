@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2020_09_15_162546) do
     t.integer "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active?", default: true
   end
 
   create_table "orders", force: :cascade do |t|
@@ -82,6 +83,8 @@ ActiveRecord::Schema.define(version: 2020_09_15_162546) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.integer "role", default: 0
+    t.bigint "merchant_id"
+    t.index ["merchant_id"], name: "index_users_on_merchant_id"
   end
 
   add_foreign_key "item_orders", "items"
@@ -89,4 +92,5 @@ ActiveRecord::Schema.define(version: 2020_09_15_162546) do
   add_foreign_key "items", "merchants"
   add_foreign_key "orders", "users"
   add_foreign_key "reviews", "items"
+  add_foreign_key "users", "merchants"
 end
