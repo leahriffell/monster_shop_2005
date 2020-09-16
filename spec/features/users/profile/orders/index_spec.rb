@@ -25,6 +25,4 @@ RSpec.describe "order profile page", type: :feature do
         end
       end
     end
-
-
-end
+  end
