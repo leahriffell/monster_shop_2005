@@ -1,6 +1,7 @@
 class OrdersController <ApplicationController
 
   def new
+
   end
 
   def show
@@ -20,7 +21,7 @@ class OrdersController <ApplicationController
       session.delete(:cart)
       if current_user.role == "regular" || current_user.role == "merchant"
         flash[:success] = "Your order was created!"
-        redirect_to "/profile/orders"
+        redirect_to profile_orders_path
       end
     else
       flash[:notice] = "Please complete address form to create an order."
