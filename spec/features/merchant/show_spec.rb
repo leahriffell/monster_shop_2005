@@ -19,7 +19,5 @@ RSpec.describe 'Site Navigation' do
       expect(page).to have_content(@mike.zip)
     end
 
-    it "if an employee logs in accidentally as a regular user, they cannot see the merchant dashboard, and must log back in as a merchant"
-
   end
 end
