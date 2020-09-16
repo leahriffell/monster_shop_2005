@@ -47,11 +47,11 @@ Rails.application.routes.draw do
   get "/profile", to: "users#show"
   get "profile/edit", to: "users#edit"
   patch "profile/edit", to: "users#update"
-
   get "/profile/orders", to: "users/orders#index"
+  get "/profile/orders/:id", to: "orders#show"
 
   # # can't get module to work without scope
-  # scope :users, module: :users do
+  # module: :users do
   #   get "/profile/orders", to: "orders#index"
   # end
 
