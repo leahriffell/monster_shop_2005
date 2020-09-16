@@ -115,7 +115,7 @@ RSpec.describe 'Cart show' do
           click_link(new_order.id)
         end
 
-        expect(current_path).to eq("/orders/#{new_order.id}")
+        expect(current_path).to eq("/profile/orders/#{new_order.id}")
 
         within "#item-#{@paper.id}" do
           expect(page).to have_link(@paper.name)
