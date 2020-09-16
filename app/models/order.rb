@@ -9,4 +9,17 @@ class Order <ApplicationRecord
   def grandtotal
     item_orders.sum('price * quantity')
   end
+
+  def status_string
+    if status?
+      "Shipped"
+    else
+      "Pending"
+    end
+  end
+
+  def total_quantity
+    item_orders.sum("quantity")
+  end
+
 end
