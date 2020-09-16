@@ -100,7 +100,7 @@ RSpec.describe 'Cart creation' do
 
     describe "As a Merchant User" do
       before :each do
-        @merchant = User.create!(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "leahisthebombdotcom@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1)
+        @merchant = User.create!(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "leahisthebombdotcom@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1, merchant_id: @mike.id)
 
         visit "/"
 
