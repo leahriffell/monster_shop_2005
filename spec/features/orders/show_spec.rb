@@ -16,22 +16,22 @@ RSpec.describe "order show page", type: :feature do
     it "can see all info about the order" do
       visit "profile/orders/#{@order_1.id}"
 
-      expect(page).to have_content("Order: #{@order_1.id}")
+      expect(page).to have_content("Order ID: #{@order_1.id}")
       expect(page).to have_content("Order date: #{@order_1.created_at}")
       expect(page).to have_content("Last update: #{@order_1.updated_at}")
       expect(page).to have_content("Status: #{@order_1.status_string}")
 
-      within("#item-#{@order_1.id}") do 
-        expect(page).to have_content(@item_1.name)
-        expect(page).to have_content(@item_1.description)
-        expect(page).to have_css("img[src*='#{@item_1.image}']")
+      within("#item-#{@tire.id}") do 
+        expect(page).to have_content(@tire.name)
+        expect(page).to have_content(@tire.description)
+        expect(page).to have_css("img[src*='#{@tire.image}']")
+        expect(page).to have_content(@tire.price)
         expect(page).to have_content(@item_order_1.quantity)
-        expect(page).to have_content(@item_1.price)
-        expect(page).to have_content(@item_order_1.number_to_currency(item_order.subtotal))
+        expect(page).to have_content("1,000")
       end
 
-      expect(page).to have_content("Total quantity: #{@order_1.total_quantity}")
-      expect(page).to have_content("Total: #{@order_1.grandtotal}")
+      expect(page).to have_content("Total item quantity: #{@order_1.total_quantity}")
+      expect(page).to have_content("Total: $1,000.00")
     end
   end
 end
