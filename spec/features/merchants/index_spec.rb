@@ -25,7 +25,6 @@ RSpec.describe 'merchant index page', type: :feature do
 
       expect(current_path).to eq("/merchants/new")
    end
-  end
 
   describe 'as an admin' do
     before :each do 
