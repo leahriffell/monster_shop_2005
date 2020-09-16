@@ -22,6 +22,10 @@ RSpec.describe "order profile page", type: :feature do
           expect(page).to have_content("Status: #{@order_1.status_string}")
           expect(page).to have_content("Quantity: #{@order_1.total_quantity}")
           expect(page).to have_content("Total price: #{@order_1.grandtotal}")
+          click_link "Order: #{@order_1.id}"
+          require "pry"
+          binding.pry
+          expect(current_path).to eq("/orders/#{@order_1.id}")
         end
       end
     end
