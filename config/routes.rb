@@ -39,7 +39,7 @@ Rails.application.routes.draw do
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
-  get "/orders/:id", to: "orders#show"
+  get "/orders/:id", to: "orders#show", as: :order_show
 
   resources :users, only: [:create]
 
@@ -47,13 +47,8 @@ Rails.application.routes.draw do
   get "/profile", to: "users#show"
   get "profile/edit", to: "users#edit"
   patch "profile/edit", to: "users#update"
-  get "/profile/orders", to: "users/orders#index"
+  get "/profile/orders", to: "users/orders#index", as: :profile_orders
   get "/profile/orders/:id", to: "orders#show"
-
-  # # can't get module to work without scope
-  # module: :users do
-  #   get "/profile/orders", to: "orders#index"
-  # end
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
