@@ -143,6 +143,10 @@ form {
   color: white;
 }
 
+td > img {
+  max-width: 100px;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
