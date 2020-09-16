@@ -27,7 +27,7 @@
           <%= link_to "Merchant Dashboard", "/merchant" %>
           <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <% else %>
-        <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+          <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <% end %>
         <%= link_to "Profile", "/profile"%>
         <%= "Logged in as #{current_user.name}" %>

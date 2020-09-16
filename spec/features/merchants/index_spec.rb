@@ -5,29 +5,26 @@ RSpec.describe 'merchant index page', type: :feature do
     @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
     @pawn_shop = Merchant.create!(name: "EZPAWN", address: '1025 Broadway', city: 'Denver', state: 'CO', zip: 80203)
     @dog_shop = Merchant.create(name: "Meg's Dog Shop", address: '123 Dog Rd.', city: 'Hershey', state: 'PA', zip: 80203, active?: false)
-  end
-  
-  describe 'as any logged in user' do
-    before :each do 
-      @bike_shop_employee = User.create(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "Leahsocool@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1)
+   
+    @bike_shop_employee = User.create(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "Leahsocool@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1)
 
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@bike_shop_employee)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@bike_shop_employee)
 
-      visit '/merchants'
-    end
+    visit '/merchants'
+   end
 
-    it 'I can see a list of merchants in the system' do
+   it 'I can see a list of merchants in the system' do
       expect(page).to have_link("#{@bike_shop.name}")
       expect(page).to have_link("#{@pawn_shop.name}")
-    end
+   end
 
-    it 'I can see a link to create a new merchant' do
+   it 'I can see a link to create a new merchant' do
       expect(page).to have_link("New Merchant")
 
       click_on "New Merchant"
 
       expect(current_path).to eq("/merchants/new")
-    end
+   end
   end
 
   describe 'as an admin' do

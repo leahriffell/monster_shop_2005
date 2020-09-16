@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe 'Site Navigation' do
   describe 'As an Admin' do
     before :each do
-      @admin = User.create(name:"Priya", address:"13 Elm Street", city:"Denver", state:"CO", zip:"66666", email: "priyavcooltoo@gmail.com", password:"yuuuuuup", password_confirmation:"yuuuuuup", role: 2)
+      @admin = User.create!(name:"Priya", address:"13 Elm Street", city:"Denver", state:"CO", zip:"66666", email: "priyavcooltoo@gmail.com", password:"yuuuuuup", password_confirmation:"yuuuuuup", role: 2)
 
       visit "/"
 
       within 'nav' do
         click_link "Login"
       end
-  
+
       fill_in :email, with: @admin.email
       fill_in  :password, with: @admin.password
       click_button "Login"
