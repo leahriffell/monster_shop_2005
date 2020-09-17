@@ -57,8 +57,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "/", to: "dashboard#index", as: :dashboard
+    get "/merchants/:merchant_id", to: "dashboard#merchant", as: :dashboard_merchant
+    get "/merchants/:merchant_id/items", to: "dashboard#merchant_items", as: :dashboard_merchant_items
   end
 
   resources :admin, only: [:index]
-
 end
