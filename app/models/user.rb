@@ -17,4 +17,7 @@ class User < ApplicationRecord
     self.find_by(email:email) != nil
   end
 
+  def has_orders?
+    orders.exists?
+  end
 end

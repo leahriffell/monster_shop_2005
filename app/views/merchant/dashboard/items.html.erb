@@ -1,0 +1,8 @@
+
+<%= link_to "Add a New Item", "/merchants/#{@merchant.id}/items/new" %>
+
+
+
+<% @items.each do |item| %>
+  <%= item.name %>
+<% end  %>
