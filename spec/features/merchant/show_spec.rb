@@ -43,6 +43,7 @@ RSpec.describe 'Site Navigation' do
       expect(page).to have_content(@bike_shop.city)
       expect(page).to have_content(@bike_shop.state)
       expect(page).to have_content(@bike_shop.zip)
+      expect(page).to have_content("123 Bike Rd.\nDenver, CO 80203")
     end
 
     it "can see a list of pending orders" do
@@ -51,6 +52,5 @@ RSpec.describe 'Site Navigation' do
       expect(page).to have_content(@item_order_1.quantity)
       expect(page).to have_content(@item_order_1.quantity * @item_order_1.price)
     end
-
   end
 end
