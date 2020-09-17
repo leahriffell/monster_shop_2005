@@ -51,7 +51,7 @@
     <li>Total: <%=number_to_currency(@order.grandtotal)%></li>
   </section>
   <li>Total item quantity: <%= @order.total_quantity %></li>
-  <li>Status: <%= @order.status_string %></li>
+  <li>Status: <%= @order.status %></li>
   <section id="datecreated">
     <li>Order date: <%= @order.created_at%></li>
   </section>

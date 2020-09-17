@@ -19,7 +19,7 @@ RSpec.describe "order show page", type: :feature do
       expect(page).to have_content("Order ID: #{@order_1.id}")
       expect(page).to have_content("Order date: #{@order_1.created_at}")
       expect(page).to have_content("Last update: #{@order_1.updated_at}")
-      expect(page).to have_content("Status: #{@order_1.status_string}")
+      expect(page).to have_content("Status: #{@order_1.status}")
 
       within("#item-#{@tire.id}") do 
         expect(page).to have_content(@tire.name)
@@ -38,7 +38,6 @@ RSpec.describe "order show page", type: :feature do
       visit "profile/orders/#{@order_1.id}"
 
       # click_button "Cancel Order" 
-
 
     end
   end

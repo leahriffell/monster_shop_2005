@@ -106,7 +106,7 @@ RSpec.describe 'Cart show' do
 
         new_order = @user.orders.last
         expect(new_order.user_id).to eq(@user.id)
-        expect(new_order.status).to eq("pending")
+        expect(new_order.status).to eq("Pending")
         expect(page).to have_content("Your order was created!")
 
         visit "/orders/#{new_order.id}"
@@ -146,7 +146,7 @@ RSpec.describe 'Cart show' do
 
         @order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
         @order_2 = @user.orders.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
-        @order_3 = @user.orders.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210, status: 3)
+        @order_3 = @user.orders.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210, status: 2)
 
         @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
         @order_1.item_orders.create!(item: @paper, price: @paper.price, quantity: 3)
@@ -164,7 +164,7 @@ RSpec.describe 'Cart show' do
         click_button "Login"
       end
 
-      xit "can see multiple orders on unique profile/orders page" do
+      it "can see multiple orders on unique profile/orders page" do
         visit "/profile/orders"
 
         within "#profile-orders" do

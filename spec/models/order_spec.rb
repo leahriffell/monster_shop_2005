@@ -37,11 +37,6 @@ describe Order, type: :model do
       expect(@order_1.grandtotal).to eq(230)
     end
 
-    it "status_string" do
-      expect(@order_1.status_string).to eq("Shipped")
-      expect(@order_2.status_string).to eq("Pending")
-    end
-
     it "total_quantity" do
       expect(@order_1.total_quantity).to eq(5)
     end
