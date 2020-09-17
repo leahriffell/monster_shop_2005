@@ -5,7 +5,7 @@ class Order <ApplicationRecord
 
   validates_presence_of :name, :address, :city, :state, :zip, :status
 
-  enum role: %w(pending packaged shipped cancelled)
+  enum status: %w(pending packaged shipped cancelled)
 
   def grandtotal
     item_orders.sum('price * quantity')
