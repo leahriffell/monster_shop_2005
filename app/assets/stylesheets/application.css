@@ -78,16 +78,17 @@ section[id*='review'] {
 
  .topnav {
    overflow: hidden;
-   background-color: #002244;
+   background-color: #FFD006;
  }
 
  .topnav a {
+   font-family: "Marker Felt", fantasy;  
    float: left;
-   color: #f2f2f2;
+   color: #357F52;
    text-align: center;
    padding: 14px 16px;
    text-decoration: none;
-   font-size: 17px;
+   font-size: 1.4em;
  }
 
  .topnav a:hover {
@@ -128,6 +129,8 @@ form {
   background-color: #f2f2f2;
   padding: 20px;
   width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .error-flash {
@@ -139,6 +142,10 @@ form {
   padding: 10px;
   background-color: green;
   color: white;
+}
+
+td > img {
+  max-width: 100px;
 }
 
 table {
@@ -155,4 +162,11 @@ td, th {
 
 tr:nth-child(even) {
   background-color: #F0F8FF;
+}
+
+#welcome-logo {
+  width: 70vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -1,6 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe 'merchant new page', type: :feature do
+  before :each do
+    @mike = Merchant.create!(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    @bike_shop_employee = User.create!(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "Leahsocool@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1, merchant_id: @mike.id)
+
+    visit '/'
+
+    within 'nav' do
+      click_link "Login"
+    end
+
+    fill_in :email, with: @bike_shop_employee.email
+    fill_in  :password, with: @bike_shop_employee.password
+    click_button "Login"
+  end
   describe 'As a user' do
     it 'I can create a new merchant' do
       visit '/merchants/new'

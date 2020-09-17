@@ -4,6 +4,7 @@
 <center>
 <table class = "cart-items">
   <tr>
+    <th>Item Image</th>
     <th>Item</th>
     <th>Sold By</th>
     <th>Price</th>
@@ -15,8 +16,14 @@
       <td>
         <p align = "center">
           <span>
-            <img align = "center" id="cart-image" src= <%= item.image %>>
-            <%=link_to item.name, "/items/#{item.id}" %>
+            <ul><img align = "center" id="cart-image" src= <%= item.image %> style= "max-width:200px;width:100%" ></ul>
+          </span>
+        </p>
+      </td>
+      <td>
+        <p align = "center">
+          <span>
+            <ul align = "center"><%=link_to item.name, "/items/#{item.id}" %></ul>
           </span>
         </p>
       </td>
@@ -30,7 +37,9 @@
       </td>
       <td>
         <center>
+          <p><%= button_to "+", "/cart/#{item.id}", id:"plus", method: :patch %></p>
           <p><%=quantity%></p>
+          <p><%= button_to "-", "/cart/#{item.id}", id:"minus", method: :put %></p>
           <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
         </center>
         </td>
@@ -42,7 +51,13 @@
 </table>
   <p>Total: <%= number_to_currency(cart.total) %></p>
   <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
-  <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
+  <section id="checkout-authorization">
+    <% if !current_user %>
+      <p> <%= "You must" %> <%= link_to "Register", "/register"%> <%= "or" %> <%= link_to "Log In", "/login"%> <%= "to finish checking out." %></p>
+    <% else %>
+      <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
+    <% end %>
+  </section>
 <% else %>
   <h3 align= "center">Cart is currently empty</h3>
 <% end %>
