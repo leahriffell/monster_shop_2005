@@ -1,8 +1,7 @@
 <h1>My Employer</h1>
 
 <section id = "merchant-info">
-
-  <h2><%= @merchant.name %></h2>
+  <h2><%= link_to @merchant.name, "/merchants/#{@merchant.id}" %></h2>
   <p><%= @merchant.address %></p>
   <p><%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></p>
 
@@ -12,7 +11,7 @@
 <% @pending_data.each do |pending_datum|%>
   <% pending_datum.flatten.each do |info|%>
     <% if info.class == Order %>
-    <p><%= "Order ID: #{info.id}" %></p>
+    <p><%= "Order ID:" %> <%= link_to info.id, "/orders/#{info.id}" %></p>
     <p><%= "Created: #{info.created_at}" %></p>
     <% elsif info.class == ItemOrder %>
     <p><%= "Total Quantity of Your Items: #{info.quantity}"  %></p>
