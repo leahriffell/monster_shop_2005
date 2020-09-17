@@ -4,7 +4,6 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get "/", to: "dashboard#index", as: :dashboard
-    # get "/items", to: "dashboard#items", as: :dashboard_items
     get "/items", to: "items#index", as: :items
   end
 
