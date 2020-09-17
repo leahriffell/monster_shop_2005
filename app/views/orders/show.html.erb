@@ -52,6 +52,9 @@
   </section>
   <li>Total item quantity: <%= @order.total_quantity %></li>
   <li>Status: <%= @order.status %></li>
+  <% if @order.status == "Pending" %>
+    <%= button_to "Cancel Order", "/orders/#{@order.id}", method: :patch %>
+  <% end %>
   <section id="datecreated">
     <li>Order date: <%= @order.created_at%></li>
   </section>
