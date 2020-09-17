@@ -7,8 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 ItemOrder.destroy_all
-Item.destroy_all
+Order.destroy_all
 User.destroy_all
+Item.destroy_all
 Merchant.destroy_all
 
 #merchants
@@ -45,23 +46,22 @@ item_8 = dog_shop.items.create!(name: "Collar", description: "XYZ", price: 20, i
 item_9 = dog_shop.items.create!(name: "Leash", description: "XYZ", price: 25, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 20)
 item_10 = dog_shop.items.create!(name: "Bone", description: "XYZ", price: 6, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 55)
 
-
 #users - regular
 tom = User.create(name: "Tom", address: "121 Tomville St.", city: "Tomville", state: "CO", zip: "34565", email: "tombroke@gmail.com", password: "thisismypassword", password_confirmation: "thisismypassword" )
 
 #users - admin
 @admin = User.create(name:"Priya", address:"13 Elm Street", city:"Denver", state:"CO", zip:"66666", email: "priyavcool@gmail.com", password:"yup", password_confirmation:"yup", role: 2)
 
-#users
+#users - regular
 tom = User.create(name: "Tom", address: "121 Tomville St.", city: "Tomville", state: "CO", zip: "34565", email: "tombrokegmail.com", password: "thisismypassword", password_confirmation: "thisismypassword" )
 
 #users - merchant employee
 merchant_employee = bike_shop.users.create(name: "Grant", address: "121 Grantville St.", city: "Granville", state: "CO", zip: "34565", email: "grant@gmail.com", password: "password", password_confirmation: "password", role: 1)
 
 #orders
-order_1 = Order.create(name: "Tommy boy", address: "1234 Street", city: "Metropolis", state: "CO", zip: 12345)
-order_2 = Order.create(name: "Susie", address: "12 Sunshine Road", city: "LA", state: "CA", zip: 55555)
-order_3 = Order.create(name: "Larry David", address: "555 Palm Dr", city: "LA", state: "CA", zip: 55555)
+order_1 = tom.orders.create(name: "Tommy boy", address: "1234 Street", city: "Metropolis", state: "CO", zip: 12345)
+order_2 = tom.orders.create(name: "Susie", address: "12 Sunshine Road", city: "LA", state: "CA", zip: 55555)
+order_3 = tom.orders.create(name: "Larry David", address: "555 Palm Dr", city: "LA", state: "CA", zip: 55555)
 
 #item_orders
 item_order_1 = ItemOrder.create(order: order_1, item: item_1, price: item_1.price, quantity: 10)
