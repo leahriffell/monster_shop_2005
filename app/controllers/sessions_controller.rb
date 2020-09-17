@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
       if current_user.role == "admin"
         redirect_to(admin_dashboard_path)
       elsif current_user.role == "merchant"
-        redirect_to(merchants_dashboard_path)
+        redirect_to(merchant_dashboard_path)
       else
         redirect_to(profile_path)
       end
@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
         redirect_to(admin_dashboard_path)
       elsif user.role == "merchant"
         flash[:success] = "Welcome Merchant, #{user.name}!"
-        redirect_to(merchants_dashboard_path)
+        redirect_to(merchant_dashboard_path)
       else
         flash[:success] = "Welcome, #{user.name}. You are logged in!"
         redirect_to(profile_path)
