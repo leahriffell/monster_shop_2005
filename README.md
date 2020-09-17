@@ -29,7 +29,6 @@ rails s
 
 ### Schema
 ![database-schema](app/assets/images/schema.png)
-![Logo](app/assets/images/logo.png)
 
 #### User Roles
 
