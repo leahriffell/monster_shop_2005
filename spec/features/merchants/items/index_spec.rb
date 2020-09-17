@@ -12,13 +12,12 @@ RSpec.describe "merchant's items index page", type: :feature do
       @item_3 = @bike_shop.items.create!(name: "Watch", description: "Track your times", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", inventory: 5, active?: false)
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_employee)
-    end
 
-    it "can all my items and their info" do 
       visit "/"
       click_on "My Items"
-      expect(current_path).to eq("/merchants/#{@bike_shop.id}/items")
-      
+    end
+
+    it "can all my items and their info" do       
       within("#item-#{@item_1.id}") do
         expect(page).to have_content(@item_1.name)
         expect(page).to have_content(@item_1.description)
@@ -38,30 +37,42 @@ RSpec.describe "merchant's items index page", type: :feature do
       end
 
 
-      within("#item-#{@item_1.id}") do
-        expect(page).to have_content(@item_1.name)
-        expect(page).to have_content(@item_1.description)
-        expect(page).to have_content(@item_1.price)
-        expect(page).to have_css("img[src*='#{@item_6.image}']")
+      within("#item-#{@item_3.id}") do
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_content(@item_3.description)
+        expect(page).to have_content(@item_3.price)
+        expect(page).to have_css("img[src*='#{@item_3.image}']")
         expect(page).to have_content("Inactive")
-        expect(page).to have_content("Inventory: #{@item_1.inventory}") 
+        expect(page).to have_content("Inventory: #{@item_3.inventory}") 
+      end
+    end
+
+    it "can deactive an active item" do 
+      within("#item-#{@item_1.id}") do
+        click_button "Deactivate"
       end
 
-#       As a merchant employee
-# When I visit my items page
-# I see all of my items with the following info:
+      expect(current_path).to eq("/merchant/items")
+      expect(page).to have_content("#{@item_1.name} is no longer for sale")
 
-# name
-# description
-# price
-# image
-# active/inactive status
-# inventory
-# I see a link or button to deactivate the item next to each item that is active
-# And I click on the "deactivate" button or link for an item
-# I am returned to my items page
-# I see a flash message indicating this item is no longer for sale
-# I see the item is now inactive
+      within("#item-#{@item_1.id}") do
+        expect(page).to have_content("Inactive")
+        expect(page).to have_button("Activate")
+      end
+    end
+
+    it "can activate an inactive item" do 
+      within("#item-#{@item_3.id}") do
+        click_button "Activate"
+      end
+
+      expect(current_path).to eq("/merchant/items")
+      expect(page).to have_content("#{@item_3.name} is now available for sale")
+
+      within("#item-#{@item_3.id}") do
+        expect(page).to have_content("Active")
+        expect(page).to have_button("Deactivate")
+      end
     end
   end
 end
