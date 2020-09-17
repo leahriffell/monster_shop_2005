@@ -17,12 +17,13 @@ RSpec.describe 'Site Navigation' do
       click_button "Login"
     end
 
-    it "I see the same links as a regular user and a link to merchant dashboard" do
+    it "I see the same links as a regular user with some additional links" do
       within 'nav' do
         expect(page).to have_content("Logged in as #{@merchant.name}")
         expect(page).to have_link("Profile")
         expect(page).to have_link("Logout")
         expect(page).to have_link("Merchant Dashboard")
+        expect(page).to have_link("My Items")
         expect(page).to have_content("Cart")
       end
     end

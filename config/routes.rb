@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   namespace :merchant do
     get "/", to: "dashboard#index", as: :dashboard
-    get "/items", to: "dashboard#items", as: :dashboard_items
+    get "/items", to: "items#index", as: :items
   end
 
   get "/merchants", to: "merchants#index"
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get "/items", to: "items#index"
   get "/items/:id", to: "items#show"
   get "/items/:id/edit", to: "items#edit"
-  patch "/items/:id", to: "items#update"
+  patch "/items/:id", to: "items#update", as: :item_update
   get "/merchants/:merchant_id/items", to: "items#index"
   get "/merchants/:merchant_id/items/new", to: "items#new"
   post "/merchants/:merchant_id/items", to: "items#create"

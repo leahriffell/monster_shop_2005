@@ -32,4 +32,8 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
+  def toggle_active
+    toggle(:active?).save
+  end
+
 end
