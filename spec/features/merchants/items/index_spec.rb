@@ -70,7 +70,7 @@ RSpec.describe "merchant's items index page", type: :feature do
       expect(page).to have_content("#{@item_3.name} is now available for sale")
 
       within("#item-#{@item_3.id}") do
-        expect(page).to have_content("Active")
+        expect(page).to have_content("Status: Active")
         expect(page).to have_button("Deactivate")
       end
     end
