@@ -20,7 +20,6 @@ RSpec.describe 'Site Navigation' do
       @item_8 = @dog_shop.items.create!(name: "Collar", description: "XYZ", price: 20, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 30)
       @item_9 = @dog_shop.items.create!(name: "Leash", description: "XYZ", price: 25, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 20)
       @item_10 = @dog_shop.items.create!(name: "Bone", description: "XYZ", price: 6, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 55)
-      #inactive item
       @item_11 = @bike_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
       @item_12 = @bike_shop.items.create(name: "Watch", description: "Track your times", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", inventory: 5)
       @order_1 = @user.orders.create!(name: "Tommy boy", address: "1234 Street", city: "Metropolis", state: "CO", zip: 12345)
@@ -51,8 +50,6 @@ RSpec.describe 'Site Navigation' do
       expect(page).to have_content(@order_1.created_at)
       expect(page).to have_content(@item_order_1.quantity)
       expect(page).to have_content(@item_order_1.quantity * @item_order_1.price)
-
-      save_and_open_page
     end
 
   end
