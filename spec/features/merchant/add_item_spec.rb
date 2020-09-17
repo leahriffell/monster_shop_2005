@@ -13,7 +13,7 @@ RSpec.describe 'Merchant Items' do
   it "can add new items" do
     expect(page).to have_link("Add a New Item")
     click_link("Add a new Item")
-
+    
 
   end
 
