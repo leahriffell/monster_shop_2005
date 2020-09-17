@@ -26,7 +26,8 @@ describe User, type: :model do
       expect(user.admin?).to be_truthy
     end
     it "can be created as a merchant user" do
-      user = User.create!(name:"Update US26", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "sammy@gmail.com", password: "pass", password_confirmation:"pass", role: 1)
+      mike = Merchant.create!(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      user = User.create!(name:"Update US26", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "sammy@gmail.com", password: "pass", password_confirmation:"pass", role: 1, merchant_id: mike.id)
       expect(user.role).to eq("merchant")
       expect(user.merchant?).to be_truthy
     end

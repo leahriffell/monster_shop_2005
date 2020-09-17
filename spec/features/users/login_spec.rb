@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe "Login Page", type: :feature do
   describe "As a visitor" do
     before :each do
+      @mike = Merchant.create!(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @user = User.create!(name:"Luke Hunter James-Erickson", address:"skdjfhdskjfh", city:"kajshd", state:"jsdh", zip:"88888", email: "poopblarg@gmail.com", password:"Iamapassword", password_confirmation:"Iamapassword", role: 0)
-      @merchant = User.create!(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "Leahsocool@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1)
+      @merchant = User.create!(name:"Leah", address:"123 Sesame Street", city:"New York", state:"NY", zip:"90210", email: "Leahsocool@gmail.com", password:"Imeanit", password_confirmation:"Imeanit", role: 1, merchant_id: @mike.id)
       @admin = User.create!(name:"Priya", address:"13 Elm Street", city:"Denver", state:"CO", zip:"66666", email: "priyavcooltoo@gmail.com", password:"yuuuuuup", password_confirmation:"yuuuuuup", role: 2)
 
       visit "/merchants"
@@ -37,7 +38,7 @@ RSpec.describe "Login Page", type: :feature do
 
       click_button "Login"
 
-      expect(current_path).to eq(merchants_dashboard_path)
+      expect(current_path).to eq(merchant_dashboard_path)
 
       expect(page).to have_content("Welcome Merchant, #{@merchant.name}!")
     end
@@ -110,7 +111,7 @@ RSpec.describe "Login Page", type: :feature do
 
       visit "/merchants"
       visit "/login"
-      expect(current_path).to eq(merchants_dashboard_path)
+      expect(current_path).to eq(merchant_dashboard_path)
     end
 
     it "can redirect a logged in admin user to dashboard" do
