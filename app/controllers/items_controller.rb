@@ -38,12 +38,22 @@ class ItemsController<ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    @item.update(item_params)
-    if @item.save
-      redirect_to "/items/#{@item.id}"
-    else
-      flash[:error] = @item.errors.full_messages.to_sentence
-      render :edit
+    if params[:change_inactive]
+      @item.toggle_active
+      flash[:success] = "#{@item.name} is no longer for sale"
+      redirect_to merchant_items_path
+    elsif params[:change_active]
+      @item.toggle_active
+      flash[:success] = "#{@item.name} is now available for sale"
+      redirect_to merchant_items_path
+    else 
+      @item.update(item_params)
+      if @item.save
+        redirect_to "/items/#{@item.id}"
+      else
+        flash[:error] = @item.errors.full_messages.to_sentence
+        render :edit
+      end
     end
   end
 

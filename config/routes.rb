@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get "/", to: "welcome#index", as: :root
 
-  namespace :merchants do
-    get "/merchant", to: "dashboard#index", as: :dashboard
+  namespace :merchant do
+    get "/", to: "dashboard#index", as: :dashboard
+    get "/items", to: "items#index", as: :items
   end
 
   get "/merchants", to: "merchants#index"
@@ -17,7 +18,7 @@ Rails.application.routes.draw do
   get "/items", to: "items#index"
   get "/items/:id", to: "items#show"
   get "/items/:id/edit", to: "items#edit"
-  patch "/items/:id", to: "items#update"
+  patch "/items/:id", to: "items#update", as: :item_update
   get "/merchants/:merchant_id/items", to: "items#index"
   get "/merchants/:merchant_id/items/new", to: "items#new"
   post "/merchants/:merchant_id/items", to: "items#create"
@@ -55,7 +56,9 @@ Rails.application.routes.draw do
   get "/logout", to: "sessions#destroy"
 
   namespace :admin do
-    get "/admin", to: "dashboard#index", as: :dashboard
+    get "/", to: "dashboard#index", as: :dashboard
+    get "/merchants/:merchant_id", to: "dashboard#merchant", as: :dashboard_merchant
+    get "/merchants/:merchant_id/items", to: "dashboard#merchant_items", as: :dashboard_merchant_items
   end
   
   scope :admin do 
