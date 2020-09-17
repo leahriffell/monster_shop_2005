@@ -25,4 +25,8 @@ class Merchant::DashboardController < Merchant::BaseController
     @pending_data = @pending_orders.zip(@pending_items.zip(@pending_item_orders))
   end
 
+  def items
+    @items = Item.where(merchant_id: current_user.merchant_id)
+  end
+
 end
