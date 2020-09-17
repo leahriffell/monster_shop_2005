@@ -54,10 +54,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def order
-    @orders = current_user.orders
-  end
-
   private
   def user_params
     params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)

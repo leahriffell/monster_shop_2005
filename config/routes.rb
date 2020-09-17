@@ -40,7 +40,8 @@ Rails.application.routes.draw do
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
-  get "/orders/:id", to: "orders#show"
+  get "/orders/:id", to: "orders#show", as: :order_show
+  patch "/orders/:id", to: "orders#update"
 
   resources :users, only: [:create]
 
@@ -48,7 +49,8 @@ Rails.application.routes.draw do
   get "/profile", to: "users#show"
   get "profile/edit", to: "users#edit"
   patch "profile/edit", to: "users#update"
-  get "/profile/orders", to: "users#order"
+  get "/profile/orders", to: "users/orders#index", as: :profile_orders
+  get "/profile/orders/:id", to: "orders#show"
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
