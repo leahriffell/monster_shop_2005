@@ -25,7 +25,7 @@
           <%= link_to "All Users", "/admin/users" %>
         <% elsif current_user.role == "merchant" %>
           <%= link_to "Merchant Dashboard", "/merchant" %>
-          <%= link_to "My Items", "/merchant/:id/items" %>
+          <%= link_to "My Items", "/merchant/items" %>
           <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <% else %>
           <%= link_to "Cart: #{cart.total_items}", "/cart" %>
