@@ -9,4 +9,16 @@
   <p><%= @merchant.zip %></p>
 
 
-  </section>
+</section>
+
+<% @pending_data.each do |pending_datum|%>
+  <% pending_datum.flatten.each do |info|%>
+    <% if info.class == Order %>
+    <p><%= "Order ID: #{info.id}" %></p>
+    <p><%= "Created: #{info.created_at}" %></p>
+    <% elsif info.class == ItemOrder %>
+    <p><%= "Total Quantity of Your Items: #{info.quantity}"  %></p>
+    <p><%= "Total Value: #{info.price * info.quantity}"  %></p>
+    <% end %>
+  <% end %>
+<% end %>
