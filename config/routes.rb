@@ -62,8 +62,8 @@ Rails.application.routes.draw do
     get "/merchants/:merchant_id", to: "dashboard#merchant", as: :dashboard_merchant
     get "/merchants/:merchant_id/items", to: "dashboard#merchant_items", as: :dashboard_merchant_items
   end
-  
-  scope :admin do 
+
+  scope :admin do
     get "/merchants", to: "merchants#index", as: :admin_merchants
   end
 
