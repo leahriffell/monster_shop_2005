@@ -24,7 +24,7 @@ RSpec.describe "order show page", type: :feature do
       expect(page).to have_content("Last update: #{@order_1.updated_at}")
       expect(page).to have_content("Status: #{@order_1.status}")
 
-      within("#item-#{@tire.id}") do 
+      within("#item-#{@tire.id}") do
         expect(page).to have_content(@tire.name)
         expect(page).to have_content(@tire.description)
         expect(page).to have_css("img[src*='#{@tire.image}']")
@@ -37,22 +37,19 @@ RSpec.describe "order show page", type: :feature do
       expect(page).to have_content("Total: $1,030.00")
     end
 
-    it "can cancel an order" do 
+    it "can cancel an order" do
       visit "profile/orders/#{@order_1.id}"
 
       click_button "Cancel Order"
 
       @order_1.item_orders.all?{ |item_order| expect(item_order.fulfilled?).to eq(false) }
-      # expect(@order_1.status).to eq("Cancelled")
-
-      # part about qty decrease
 
       expect(current_path).to eq("/profile")
       expect(page).to have_content("Your order has been cancelled")
 
-      visit "/profile/orders" 
+      visit "/profile/orders"
 
-      within ("#order-#{@order_1.id}") do 
+      within ("#order-#{@order_1.id}") do
         expect(page).to have_content("Status: Cancelled")
       end
     end
