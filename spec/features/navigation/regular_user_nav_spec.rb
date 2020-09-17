@@ -18,7 +18,7 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "can redirect a regular user to 404 error if they try to access any path with /merchant" do
-      visit merchants_dashboard_path
+      visit merchant_dashboard_path
       expect(page).to have_content("The page you were looking for doesn't exist.")
     end
 
