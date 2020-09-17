@@ -55,8 +55,11 @@ RSpec.describe 'Merchant Dashboard' do
       expect(page).to have_content(@item_order_1.quantity * @item_order_1.price)
     end
 
-    it "can see a link to view my own items" do
-
+    it "can see a link to view merchant items" do
+      expect(page).to have_link("Items for #{@bike_shop.name}")
+      click_link "Items for #{@bike_shop.name}"
+      expect(current_path).to eq("/merchant/items")
+      expect(page).to have_content(@item_1.name)
     end
   end
 end
