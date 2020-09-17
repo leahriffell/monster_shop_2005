@@ -1,5 +1,7 @@
 <h2>My Items</h2>
 
+<%= link_to "Add a New Item", "/merchants/#{@merchant.id}/items/new" %>
+
 <section class="grid-container">
   <% @items.each do |item| %>
     <section class = "grid-item" id= 'item-<%=item.id%>'>
@@ -8,7 +10,7 @@
       <a href="/items/<%=item.id%>">
         <img alt="item-image" src=<%= item.image %>/>
       </a>
-      <p> <%= item.description unless @merchant%> </p>
+      <p> <%= item.description %> </p>
       <p>Price: <%=number_to_currency(item.price) %> </p>
       <p>Inventory: <%= item.inventory %> </p>
       <% if item.active? %>

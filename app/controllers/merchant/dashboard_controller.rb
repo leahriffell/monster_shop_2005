@@ -27,6 +27,7 @@ class Merchant::DashboardController < Merchant::BaseController
 
   def items
     @items = Item.where(merchant_id: current_user.merchant_id)
+    @merchant = Merchant.find(current_user.merchant_id)
   end
 
 end
