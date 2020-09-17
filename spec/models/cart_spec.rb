@@ -29,6 +29,8 @@ RSpec.describe Cart do
         @giant.id.to_s => 2,
         @hippo.id.to_s => 1
         })
+
+      # WRITE IN ADDITIONAL TESTS FOR CHECKING INVENTORY FIRST
     end
 
     it '.total_items' do
@@ -46,6 +48,11 @@ RSpec.describe Cart do
     it '.subtotal()' do
       expect(@cart.subtotal(@ogre)).to eq(20)
       expect(@cart.subtotal(@giant)).to eq(100)
+    end
+
+    it ".empty_cart" do
+      @cart.empty_cart
+      expect(@cart.total_items).to eq(0)
     end
   end
 end

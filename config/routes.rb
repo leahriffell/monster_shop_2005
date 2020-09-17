@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get "/", to: "welcome#index", as: :root
+
+  namespace :merchants do
+    get "/merchant", to: "dashboard#index", as: :dashboard
+  end
 
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
   get "/merchants/:id", to: "merchants#show"
   post "/merchants", to: "merchants#create"
   get "/merchants/:id/edit", to: "merchants#edit"
-  patch "/merchants/:id", to: "merchants#update"
+  patch "/merchants/:id", to: "merchants#update", as: :merchant_update
   delete "/merchants/:id", to: "merchants#destroy"
 
   get "/items", to: "items#index"
@@ -27,6 +32,8 @@ Rails.application.routes.draw do
 
   post "/cart/:item_id", to: "cart#add_item"
   get "/cart", to: "cart#show"
+  patch "/cart/:item_id", to: "cart#increase_quantity"
+  put "/cart/:item_id", to: "cart#decrease_quantity"
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
 
@@ -35,6 +42,28 @@ Rails.application.routes.draw do
   get "/orders/:id", to: "orders#show"
 
   resources :users, only: [:create]
+
   get "/register", to: "users#new"
   get "/profile", to: "users#show"
+  get "profile/edit", to: "users#edit"
+  patch "profile/edit", to: "users#update"
+  get "/profile/orders", to: "users#order"
+
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
+
+  get "/logout", to: "sessions#destroy"
+
+  get "/admin/users", to: "admin/users#index"
+
+
+  namespace :admin do
+    get "/admin", to: "dashboard#index", as: :dashboard
+  end
+
+  scope :admin do
+    get "/merchants", to: "merchants#index", as: :admin_merchants
+  end
+
+  resources :admin, only: [:index]
 end
