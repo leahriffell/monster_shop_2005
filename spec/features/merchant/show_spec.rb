@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Site Navigation' do
+RSpec.describe 'Merchant Dashboard' do
   describe 'As a Merchant' do
     before :each do
       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -39,6 +39,7 @@ RSpec.describe 'Site Navigation' do
 
     it "can see the name and full address of the merchant I work for" do
       expect(page).to have_content(@bike_shop.name)
+      expect(page).to have_link(@bike_shop.name)
       expect(page).to have_content(@bike_shop.address)
       expect(page).to have_content(@bike_shop.city)
       expect(page).to have_content(@bike_shop.state)
@@ -48,9 +49,17 @@ RSpec.describe 'Site Navigation' do
 
     it "can see a list of pending orders" do
       expect(page).to have_content(@order_1.id)
+      expect(page).to have_link(@order_1.id)
       expect(page).to have_content(@order_1.created_at)
       expect(page).to have_content(@item_order_1.quantity)
       expect(page).to have_content(@item_order_1.quantity * @item_order_1.price)
+    end
+
+    it "can see a link to view merchant items" do
+      expect(page).to have_link("Items for #{@bike_shop.name}")
+      click_link "Items for #{@bike_shop.name}"
+      expect(current_path).to eq("/merchant/items")
+      expect(page).to have_content(@item_1.name)
     end
   end
 end
