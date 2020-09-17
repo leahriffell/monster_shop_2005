@@ -15,4 +15,22 @@ class Order <ApplicationRecord
     item_orders.sum("quantity")
   end
 
+  def change_to_cancel_status 
+    update(status: 3)
+  end
+
+  def unfulfill_item_orders 
+    item_orders.each do |item_order| 
+      if item_order.fulfilled? 
+        item_order.update(fulfilled?: false)
+        item = Item.find(item_order.item_id)
+        item.update(inventory: (item.inventory + item_order.quantity))
+      end
+    end
+  end
+
+  def cancel 
+    change_to_cancel_status
+    unfulfill_item_orders
+  end
 end

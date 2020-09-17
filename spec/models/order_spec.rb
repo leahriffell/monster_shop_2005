@@ -30,7 +30,8 @@ describe Order, type: :model do
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
       @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
       @order_2.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
-      @order_2.item_orders.create!(item: @tire, price: @tire.price, quantity: 5)
+      # @tire.update(inventory: 7)
+      @order_2.item_orders.create!(item: @tire, price: @tire.price, quantity: 5, fulfilled?: true)
     end
 
     it 'grandtotal' do
@@ -41,6 +42,23 @@ describe Order, type: :model do
       expect(@order_1.total_quantity).to eq(5)
     end
 
-    it ""
+    it "change_to_cancel_status" do 
+      @order_2.change_to_cancel_status
+      expect(@order_2.status).to eq("Cancelled")
+    end
+
+    it "unfulfill_item_orders" do 
+      expect(@tire.inventory).to eq(12)
+      @order_2.unfulfill_item_orders
+      # expect(@tire.inventory).to eq(17)
+      @order_2.item_orders.all?{ |item_order| expect(item_order.fulfilled?).to eq(false) }
+    end
+
+    it "cancel" do 
+      @order_2.cancel 
+      expect(@order_2.status).to eq("Cancelled")
+      # expect(@tire.inventory).to eq(17)
+      @order_2.item_orders.all?{ |item_order| expect(item_order.fulfilled?).to eq(false) }
+    end
   end
 end
