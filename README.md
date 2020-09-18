@@ -9,7 +9,7 @@ BE Mod 2 Week 4/5 Group Project
 
 ## Deployment
 
-A deployment of the site is available [here](https://agile-garden-85197.herokuapp.com/).
+A deployment of the site is available [here](https://desolate-plains-50424.herokuapp.com/).
 
 ## Setup
 
@@ -25,7 +25,7 @@ bundle install
 rails s
 ```
 
-## Data Structure 
+## Data Structure
 
 ### Schema
 ![database-schema](app/assets/images/schema.png)
