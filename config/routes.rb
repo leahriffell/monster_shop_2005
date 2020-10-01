@@ -29,10 +29,8 @@ Rails.application.routes.draw do
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
 
-  get "/orders/new", to: "orders#new"
-  post "/orders", to: "orders#create"
+  resources :orders, only: [:new, :create, :update, :show]
   get "/orders/:id", to: "orders#show", as: :order_show
-  patch "/orders/:id", to: "orders#update"
 
   resources :users, only: [:create]
 
@@ -45,7 +43,6 @@ Rails.application.routes.draw do
 
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
-
   get "/logout", to: "sessions#destroy"
 
   namespace :admin do
